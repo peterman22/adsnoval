@@ -1,0 +1,264 @@
+{
+    "banner": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Banner",
+        "content": {
+            "images": {
+                "background_image": {
+                    "size": "1920x1280"
+                },
+                "image": {
+                    "size": "1080x800"
+                }
+            },
+            "heading": "text",
+            "subheading": "text",
+            "button_name": "text",
+            "button_link": "text",
+            "video_link": "text"
+        }
+    },
+    "login": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Login",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "1382x1445"
+                }
+            },
+            "heading": "text"
+        }
+    },
+    "register": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Register",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "1382x1445"
+                }
+            },
+            "heading": "text"
+        }
+    },
+    "policy_pages": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Policy Pages",
+        "element": {
+            "title": "text",
+            "slug": "title",
+            "details": "textarea-nic",
+            "modal": false
+        }
+    },
+    "header": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Header",
+        "content": {
+            "phone": "text",
+            "email": "text"
+        }
+    },
+    "blog": {
+        "builder": true,
+        "name": "Blog",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "855x570",
+                    "thumb": "415x250"
+                }
+            },
+            "title": "text",
+            "slug": "title",
+            "description": "textarea-nic",
+            "modal": false,
+            "seo": true
+        }
+    },
+    "brand": {
+        "builder": true,
+        "name": "Brand",
+        "element": {
+            "images": {
+                "image": {
+                    "size": "400x150"
+                }
+            },
+            "modal": true
+        }
+    },
+    "about": {
+        "builder": true,
+        "name": "About Us",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "1024x970"
+                }
+            },
+            "heading": "text",
+            "subheading": "text",
+            "description": "textarea-nic"
+        }
+    },
+    "faq": {
+        "builder": true,
+        "name": "FAQ",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "question": "text",
+            "answer": "textarea",
+            "modal": true
+        }
+    },
+    "testimonial": {
+        "builder": true,
+        "name": "Testimonial",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "200x200"
+                }
+            },
+            "name": "text",
+            "designation": "text",
+            "comment": "textarea",
+            "reason": "text",
+            "modal": true
+        }
+    },
+    "counter": {
+        "builder": true,
+        "name": "Counter",
+        "content": {
+            "images": {
+                "background_image": {
+                    "size": "1920x500"
+                }
+            },
+            "heading": "text",
+            "subheading": "text",
+            "description": "text"
+        },
+        "element": {
+            "title": "text",
+            "number": "text",
+            "range": "text",
+            "modal": true
+        }
+    },
+    "plan": {
+        "builder": true,
+        "name": "Plan",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        }
+    },
+    "features": {
+        "builder": true,
+        "name": "Features",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "icon": "icon",
+            "title": "text",
+            "content": "textarea",
+            "modal": true
+        }
+    },
+    "breadcrumb": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Breadcrumb",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "1920x330"
+                }
+            }
+        }
+    },
+    "contact": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Contact",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "705x595"
+                }
+            },
+            "heading": "text"
+        },
+        "element": {
+            "icon": "icon",
+            "title": "text",
+            "content": "text",
+            "modal": true
+        }
+    },
+    "social_icon": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Social Icons",
+        "element": {
+            "title": "text",
+            "icon": "icon",
+            "url": "text",
+            "modal": true
+        }
+    },
+    "footer": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Footer",
+        "content": {
+            "heading": "text",
+            "description": "text"
+        }
+    },
+    "kyc": {
+        "builder": true,
+        "no_selection": true,
+        "name": "KYC Content",
+        "content": {
+            "required": "text",
+            "pending": "text",
+            "reject": "text"
+        }
+    },
+    "ban_page": {
+        "no_selection": true,
+        "builder": true,
+        "name": "Banned Page",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "700x400"
+                }
+            },
+            "heading": "text"
+        }
+    }
+}

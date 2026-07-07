@@ -1,0 +1,1 @@
+var firebaseConfig = {"apiKey":"AIzaSyDULtAjnqs74JRJqHjF3I8bJ0vLm2p_fW0","authDomain":"adsnoval-61c81.firebaseapp.com","projectId":"adsnoval-61c81","storageBucket":"adsnoval-61c81.firebasestorage.app","messagingSenderId":"17795219057","appId":"1:17795219057:web:fdf5fe83af79d5328765d0","measurementId":"G-21Q4N0YGS0"}

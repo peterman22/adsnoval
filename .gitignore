@@ -1,0 +1,28 @@
+# ─── Dependencies (regenerate with `composer install`) ───
+/vendor/
+/core/vendor/
+/node_modules/
+/core/node_modules/
+
+# ─── Environment & secrets — NEVER commit ───
+.env
+.env.backup
+/core/.env
+*.pem
+*.ppk
+# Firebase/Google service-account credentials (contains private_key)
+/assets/admin/push_config.json
+
+# ─── Laravel runtime (storage keep-files handle the rest) ───
+/core/storage/debugbar/*
+!/core/storage/debugbar/.gitignore
+
+# ─── Server / build logs & junk ───
+error_log
+*.log
+
+# ─── OS / editor cruft ───
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
