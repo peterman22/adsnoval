@@ -191,18 +191,27 @@ body.neon-app label, body.neon-app .card-title { color: var(--neon-text) !import
 .neon-ticker__live { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--neon-green); font-size: 13px; }
 .neon-ticker__live .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--neon-green); box-shadow: 0 0 0 0 rgba(52,211,153,.7); animation: neon-pulse 1.6s infinite; }
 @keyframes neon-pulse { 0% { box-shadow: 0 0 0 0 rgba(52,211,153,.6);} 70% { box-shadow: 0 0 0 10px rgba(52,211,153,0);} 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0);} }
-.neon-ticker__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; max-height: 320px; overflow: hidden; }
+.neon-ticker__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; overflow: hidden; }
 .neon-ticker__item {
-    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
     padding: 12px 14px; border-radius: 12px;
     background: rgba(255,255,255,.03); border: 1px solid var(--neon-border);
     animation: neon-rise .5s ease both;
 }
 @keyframes neon-rise { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none;} }
-.neon-ticker__who { display: flex; align-items: center; gap: 10px; font-weight: 600; }
-.neon-ticker__avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--neon-grad-soft); color: var(--neon-accent); font-weight: 800; }
-.neon-ticker__amt { font-weight: 800; color: var(--neon-green); }
+/* left side (avatar + name/meta) may shrink & truncate; amount never wraps */
+.neon-ticker__who { display: flex; align-items: center; gap: 10px; font-weight: 600; min-width: 0; flex: 1 1 auto; }
+.neon-ticker__who > span:last-child { min-width: 0; overflow: hidden; }
+.neon-ticker__who > span:last-child,
+.neon-ticker__meta { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+.neon-ticker__avatar { width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%; display: grid; place-items: center; background: var(--neon-grad-soft); color: var(--neon-accent); font-weight: 800; }
+.neon-ticker__amt { font-weight: 800; color: var(--neon-green); white-space: nowrap; flex: 0 0 auto; text-align: right; font-variant-numeric: tabular-nums; }
 .neon-ticker__meta { font-size: 12px; color: var(--neon-muted); }
+/* On wide desktops give the payout list room to breathe */
+@media (min-width: 1200px) {
+    .neon-ticker__list { gap: 10px; }
+    .neon-ticker__item { padding: 14px 16px; }
+}
 
 /* ---- Streak ------------------------------------------------------- */
 .neon-streak__days { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0; }
@@ -313,3 +322,99 @@ body.neon-app .btn--sm { padding: 8px 16px !important; font-size: 14px; border-r
     .neon-wheel-wrap { width: 220px; }
     .neon-wheel__hub { width: 54px; height: 54px; font-size: 11px; }
 }
+
+/* =====================================================================
+   FULL-COVERAGE OVERRIDES — recolor every dashboard page
+   Neutralizes the theme's white/orange component backgrounds and forces
+   readable light text everywhere inside the logged-in area.
+   ===================================================================== */
+
+/* Remap text-intent theme variables to light (safe direction) */
+body.neon-app {
+    --heading: 220 30% 92%;
+    --text:    220 14% 72%;
+    --body:    220 14% 72%;
+}
+
+/* Kill the white stat-tile body + orange header bar */
+body.neon-app .dashboard-widget {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+body.neon-app .widget-container__head {
+    background: transparent !important;
+    color: var(--neon-muted) !important;
+}
+
+/* Generic white surfaces used across pages → dark glass */
+body.neon-app .custom--card,
+body.neon-app .custom--card .card-header,
+body.neon-app .custom--modal .modal-content,
+body.neon-app .modal-content,
+body.neon-app .custom-dropdown__content,
+body.neon-app .custom--dropdown > .dropdown-list,
+body.neon-app .dropdown-menu,
+body.neon-app .custom--accordion .accordion-button,
+body.neon-app .custom--accordion .accordion-body,
+body.neon-app .support-card,
+body.neon-app .qr-code-wrapper,
+body.neon-app .blog-post,
+body.neon-app .card-header,
+body.neon-app .card-footer,
+body.neon-app .list-group-item,
+body.neon-app .nav-tabs .nav-link {
+    background: linear-gradient(180deg, var(--neon-surface), var(--neon-surface-2)) !important;
+    color: var(--neon-text) !important;
+    border-color: var(--neon-border) !important;
+}
+body.neon-app .custom--card .card-header { background: rgba(255,255,255,.03) !important; }
+
+/* Table striping / hover on dark */
+body.neon-app .table-responsive--md tbody tr:nth-child(odd),
+body.neon-app .table-striped > tbody > tr:nth-of-type(odd) > * {
+    background: rgba(255,255,255,.03) !important;
+    --bs-table-accent-bg: transparent !important;
+    color: var(--neon-text) !important;
+}
+body.neon-app .table > :not(caption) > * > * { background-color: transparent !important; color: var(--neon-text) !important; }
+
+/* Force readable headings & text on every page */
+body.neon-app h1, body.neon-app h2, body.neon-app h3,
+body.neon-app h4, body.neon-app h5, body.neon-app h6,
+body.neon-app .card-title, body.neon-app .custom--card .card-title,
+body.neon-app .title, body.neon-app .caption, body.neon-app p,
+body.neon-app .dashboard-widget__amount, body.neon-app label,
+body.neon-app .custom--accordion .accordion-button {
+    color: var(--neon-text) !important;
+}
+body.neon-app small, body.neon-app .text-muted, body.neon-app .dashboard-widget__title { color: var(--neon-muted) !important; }
+
+/* Breadcrumb / page header bars */
+body.neon-app .breadcrumbs,
+body.neon-app .dashboard-header,
+body.neon-app .page-header,
+body.neon-app .header-wrapper {
+    background: transparent !important;
+    color: var(--neon-text) !important;
+}
+body.neon-app .breadcrumbs__item, body.neon-app .breadcrumbs__item a { color: var(--neon-muted) !important; }
+
+/* Inputs, selects, textareas across all forms */
+body.neon-app .form--control,
+body.neon-app .form--select .form-select,
+body.neon-app select, body.neon-app textarea, body.neon-app input:not([type=checkbox]):not([type=radio]) {
+    background: rgba(255,255,255,.04) !important;
+    border: 1px solid var(--neon-border-2) !important;
+    color: var(--neon-text) !important;
+}
+body.neon-app .form--control::placeholder, body.neon-app input::placeholder { color: #6b7488 !important; }
+body.neon-app select option { background: #141b2d !important; color: var(--neon-text) !important; }
+
+/* Input-group addons, pagination, tabs */
+body.neon-app .input-group-text { background: rgba(255,255,255,.05) !important; border-color: var(--neon-border-2) !important; color: var(--neon-muted) !important; }
+body.neon-app .page-link { background: rgba(255,255,255,.04) !important; border-color: var(--neon-border) !important; color: var(--neon-text) !important; }
+body.neon-app .page-item.active .page-link { background: var(--neon-grad) !important; border: none !important; }
+
+/* Modal / dropdown structural bits */
+body.neon-app .modal-header, body.neon-app .modal-footer { border-color: var(--neon-border) !important; }
+body.neon-app .btn-close { filter: invert(1) grayscale(1) brightness(1.6); }
