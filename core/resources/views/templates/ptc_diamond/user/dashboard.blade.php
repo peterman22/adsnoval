@@ -258,7 +258,7 @@
                     if (res.status !== 'success' || !res.feed.length) return;
                     $('#tickerTotal').text('{{ __('Total paid') }}: ' + res.total);
                     var $list = $('#withdrawTicker').empty();
-                    res.feed.forEach(function(f, i) {
+                    res.feed.slice(0, 3).forEach(function(f, i) {
                         var li = $('<li class="neon-ticker__item"></li>').css('animation-delay', (i * 0.05) + 's');
                         li.html(
                             '<span class="neon-ticker__who"><span class="neon-ticker__avatar">' + initials(f.user) + '</span>' +

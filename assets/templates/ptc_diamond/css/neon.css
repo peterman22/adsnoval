@@ -93,7 +93,7 @@ body.neon-app .dashboard-widget__icon {
     border: 1px solid var(--neon-border-2);
     color: var(--neon-accent);
 }
-body.neon-app .dashboard-widget__amount { color: var(--neon-text) !important; font-weight: 800; font-size: 24px; }
+body.neon-app .dashboard-widget__amount { color: var(--neon-text) !important; font-weight: 800; font-size: 18px; }
 body.neon-app .dashboard-widget__overlay-icon { position: absolute; right: -8px; bottom: -14px; font-size: 82px; opacity: .05; color: #fff; }
 body.neon-app .widget-container__head { border: none !important; padding-bottom: 0 !important; }
 
@@ -172,7 +172,7 @@ body.neon-app .form-control:focus { border-color: var(--neon-accent) !important;
 body.neon-app label, body.neon-app .card-title { color: var(--neon-text) !important; }
 
 /* ---- Section titles ---------------------------------------------- */
-.neon-section-title { font-weight: 800; letter-spacing: -.01em; }
+.neon-section-title { font-weight: 800; letter-spacing: -.01em; font-size: 1.15rem !important; line-height: 1.3; }
 .neon-chip {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 6px 12px; border-radius: 999px;
@@ -200,13 +200,14 @@ body.neon-app label, body.neon-app .card-title { color: var(--neon-text) !import
 }
 @keyframes neon-rise { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none;} }
 /* left side (avatar + name/meta) may shrink & truncate; amount never wraps */
-.neon-ticker__who { display: flex; align-items: center; gap: 10px; font-weight: 600; min-width: 0; flex: 1 1 auto; }
+.neon-ticker__who { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 13px; min-width: 0; flex: 1 1 auto; }
 .neon-ticker__who > span:last-child { min-width: 0; overflow: hidden; }
 .neon-ticker__who > span:last-child,
 .neon-ticker__meta { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
-.neon-ticker__avatar { width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%; display: grid; place-items: center; background: var(--neon-grad-soft); color: var(--neon-accent); font-weight: 800; }
-.neon-ticker__amt { font-weight: 800; color: var(--neon-green); white-space: nowrap; flex: 0 0 auto; text-align: right; font-variant-numeric: tabular-nums; }
-.neon-ticker__meta { font-size: 12px; color: var(--neon-muted); }
+.neon-ticker__avatar { width: 30px; height: 30px; flex: 0 0 30px; border-radius: 50%; display: grid; place-items: center; background: var(--neon-grad-soft); color: var(--neon-accent); font-weight: 800; font-size: 13px; }
+.neon-ticker__amt { font-weight: 800; font-size: 14px; color: var(--neon-green); white-space: nowrap; flex: 0 0 auto; text-align: right; font-variant-numeric: tabular-nums; }
+.neon-ticker__meta { font-size: 11px; color: var(--neon-muted); }
+.neon-ticker__live { font-size: 13px; }
 /* On wide desktops give the payout list room to breathe */
 @media (min-width: 1200px) {
     .neon-ticker__list { gap: 10px; }
@@ -222,7 +223,7 @@ body.neon-app label, body.neon-app .card-title { color: var(--neon-text) !import
     color: var(--neon-muted); font-weight: 700; font-size: 12px;
 }
 .neon-streak__day.filled { background: var(--neon-grad); color: #fff; border: none; box-shadow: 0 10px 22px -14px rgba(124,58,237,.9); }
-.neon-streak__day .n { display: block; font-size: 16px; }
+.neon-streak__day .n { display: block; font-size: 14px; }
 
 /* ---- Welcome hero banner ----------------------------------------- */
 .neon-hero {
@@ -250,12 +251,12 @@ body.neon-app label, body.neon-app .card-title { color: var(--neon-text) !import
     mask-image: radial-gradient(500px 200px at 20% 0%, #000, transparent 70%);
     pointer-events: none;
 }
-.neon-hero__title { font-size: 30px; font-weight: 800; margin: 12px 0 4px; color: #fff; letter-spacing: -.02em; }
-.neon-hero__sub { color: var(--neon-muted); }
+.neon-hero__title { font-size: 22px; font-weight: 800; margin: 10px 0 4px; color: #fff; letter-spacing: -.02em; }
+.neon-hero__sub { color: var(--neon-muted); font-size: 14px; }
 .neon-hero__balance { position: relative; text-align: right; }
-.neon-hero__balance-label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--neon-muted); }
+.neon-hero__balance-label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--neon-muted); }
 .neon-hero__balance-value {
-    display: block; font-size: 40px; font-weight: 900; line-height: 1.1; margin: 4px 0 14px;
+    display: block; font-size: 27px; font-weight: 900; line-height: 1.15; margin: 3px 0 12px;
     background: linear-gradient(120deg, #fff, #b8c2ff 40%, var(--neon-accent));
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
@@ -297,16 +298,16 @@ body.neon-app .btn--sm { padding: 8px 16px !important; font-size: 14px; border-r
 
 /* Roomier layout on large desktops */
 @media (min-width: 1400px) {
-    .neon-hero { padding: 38px 44px; }
-    .neon-hero__balance-value { font-size: 46px; }
-    body.neon-app .dashboard-widget__amount { font-size: 26px; }
+    .neon-hero { padding: 34px 40px; }
+    .neon-hero__balance-value { font-size: 30px; }
+    body.neon-app .dashboard-widget__amount { font-size: 19px; }
 }
 
 /* Tablet */
 @media (max-width: 991.98px) {
-    .neon-hero { padding: 26px; }
-    .neon-hero__title { font-size: 26px; }
-    .neon-hero__balance-value { font-size: 34px; }
+    .neon-hero { padding: 24px; }
+    .neon-hero__title { font-size: 20px; }
+    .neon-hero__balance-value { font-size: 24px; }
     .neon-wheel-wrap { width: 260px; }
 }
 
@@ -316,7 +317,7 @@ body.neon-app .btn--sm { padding: 8px 16px !important; font-size: 14px; border-r
     .neon-hero__balance { text-align: left; width: 100%; }
     .neon-hero__actions { justify-content: flex-start; }
     .neon-hero__actions .btn { flex: 1 1 auto; text-align: center; }
-    .neon-hero__balance-value { font-size: 32px; }
+    .neon-hero__balance-value { font-size: 24px; }
     .neon-pad { padding: 18px !important; }
     .neon-streak__day { min-width: 34px; font-size: 11px; }
     .neon-wheel-wrap { width: 220px; }
