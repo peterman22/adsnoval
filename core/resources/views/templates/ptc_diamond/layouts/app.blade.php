@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/lib/simplebar.min.css') }}">
     <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/main.css') }}">
     <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/neon.css') }}">
 
     @stack('style-lib')
 
@@ -44,7 +45,7 @@
 </head>
 @php echo loadExtension('google-analytics') @endphp
 
-<body>
+<body class="neon-app">
 
     @stack('fbComment')
 

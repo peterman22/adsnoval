@@ -121,6 +121,13 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('report', 'reportSubmit')->name('report.submit');
                 Route::get('engagement/{id}', 'engagement')->name('engagement');
             });
+
+            // Daily rewards: streak check-in + spin the wheel
+            Route::controller('RewardController')->prefix('rewards')->name('rewards.')->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::post('spin', 'spin')->name('spin');
+                Route::post('check-in', 'checkIn')->name('checkin');
+            });
         });
 
         // Payment

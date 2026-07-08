@@ -11,6 +11,7 @@ use App\Models\Page;
 use App\Models\Plan;
 use App\Models\SupportMessage;
 use App\Models\SupportTicket;
+use App\Models\Withdrawal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -18,6 +19,110 @@ use Illuminate\Support\Facades\Cookie;
 
 class SiteController extends Controller
 {
+    /**
+     * Public "proof of payment" feed for the live ticker. Depending on config
+     * (config/withdraw_feed.php) it returns real approved withdrawals,
+     * simulated social-proof entries, or a blend of both.
+     */
+    public function withdrawFeed()
+    {
+        $cfg   = config('withdraw_feed');
+        $mode  = $cfg['mode'] ?? 'generated';
+        $count = (int) ($cfg['count'] ?? 15);
+
+        $feed = collect();
+
+        if ($mode === 'real' || $mode === 'mixed') {
+            $feed = Withdrawal::approved()
+                ->with('user:id,username')
+                ->orderByDesc('updated_at')
+                ->limit($count)
+                ->get()
+                ->map(fn ($w) => [
+                    'user'   => $this->maskUsername(optional($w->user)->username ?? 'user'),
+                    'amount' => showAmount($w->amount),
+                    'method' => $w->method_currency ?? '',
+                    'ago'    => $w->updated_at ? $w->updated_at->diffForHumans() : '',
+                ]);
+        }
+
+        if ($mode === 'generated' || $mode === 'mixed') {
+            $feed = $feed->concat($this->generatedFeed($cfg, $count))->take($count);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'total'  => showAmount($this->feedTotalPaid($cfg)),
+            'count'  => $feed->count(),
+            'feed'   => $feed->values(),
+        ]);
+    }
+
+    /**
+     * Build simulated payout entries. Each slot is seeded by its interval
+     * "bucket" so the list is stable between polls and advances by exactly one
+     * new entry every `interval_minutes`.
+     */
+    protected function generatedFeed(array $cfg, int $count): \Illuminate\Support\Collection
+    {
+        $interval = max(1, (int) ($cfg['interval_minutes'] ?? 5)) * 60;
+        $min      = (float) ($cfg['min_amount'] ?? 53);
+        $max      = (float) ($cfg['max_amount'] ?? 7305);
+        $skew     = (float) ($cfg['skew'] ?? 2.4);
+        $names    = $cfg['names'] ?? ['user'];
+        $methods  = $cfg['methods'] ?? ['USDT'];
+
+        $now  = time();
+        $feed = collect();
+
+        for ($i = 0; $i < $count; $i++) {
+            $bucketStart = $now - ($i * $interval);
+            $seed        = intdiv($bucketStart, $interval);
+            mt_srand($seed);
+
+            $name    = $names[mt_rand(0, count($names) - 1)] . mt_rand(2, 99);
+            $method  = $methods[mt_rand(0, count($methods) - 1)];
+            $r       = mt_rand(0, 100000) / 100000;           // 0..1
+            $amount  = $min + ($max - $min) * pow($r, $skew);  // skewed low
+            $offset  = mt_rand(0, $interval - 1);              // within-window jitter
+
+            $feed->push([
+                'user'   => $this->maskUsername($name),
+                'amount' => showAmount(round($amount, 2)),
+                'method' => $method,
+                'ago'    => \Carbon\Carbon::createFromTimestamp($bucketStart - $offset)->diffForHumans(),
+            ]);
+        }
+
+        mt_srand(); // restore randomness
+        return $feed;
+    }
+
+    /** A believable, steadily-growing "total paid out" headline number. */
+    protected function feedTotalPaid(array $cfg): float
+    {
+        if (($cfg['mode'] ?? 'generated') === 'real') {
+            return (float) Withdrawal::approved()->sum('amount');
+        }
+        $base   = (float) ($cfg['total_base'] ?? 0);
+        $perDay = (float) ($cfg['total_per_day'] ?? 0);
+        $anchor = Carbon::parse($cfg['total_anchor_date'] ?? '2025-01-01');
+        $days   = max(0, $anchor->diffInDays(Carbon::now()));
+        // Add a smooth intraday portion so it ticks up through the day.
+        $intraday = $perDay * (Carbon::now()->secondsSinceMidnight() / 86400);
+        return $base + ($days * $perDay) + $intraday;
+    }
+
+    /** Turn "peterman22" into "p******22" for privacy. */
+    protected function maskUsername(string $name): string
+    {
+        $len = strlen($name);
+        if ($len <= 3) {
+            return substr($name, 0, 1) . str_repeat('*', 2);
+        }
+        return substr($name, 0, 1) . str_repeat('*', max(3, $len - 3)) . substr($name, -2);
+    }
+
     public function index()
     {
         $reference = @$_GET['reference'];
@@ -29,7 +134,12 @@ class SiteController extends Controller
         $sections = Page::where('tempname', activeTemplate())->where('slug', '/')->first();
         $seoContents = $sections->seo_content;
         $seoImage = @$seoContents->image ? getImage(getFilePath('seo') . '/' . @$seoContents->image, getFileSize('seo')) : null;
-        return view('Template::home', compact('pageTitle', 'sections', 'seoContents', 'seoImage'));
+
+        // Data for the public earnings calculator
+        $calcPlans = Plan::where('status', 1)->orderBy('price')->get(['name', 'price', 'daily_limit', 'validity']);
+        $calcConfig = config('rewards.calculator');
+
+        return view('Template::home', compact('pageTitle', 'sections', 'seoContents', 'seoImage', 'calcPlans', 'calcConfig'));
     }
 
     public function pages($slug)

@@ -902,6 +902,170 @@ CTA START -->
 CTA END -->
 
 </main>
+<!-- ============ Earnings Calculator + Live Payouts (AdsNoval) ============ -->
+<section class="av-earn">
+    <div class="container">
+        <div class="av-earn__head">
+            <span class="av-chip">💸 @lang('Earnings Estimator')</span>
+            <h2 class="av-earn__title">@lang('See how much you could earn')</h2>
+            <p class="av-earn__sub">@lang('Pick a plan, drag the slider, and watch your potential daily & monthly income update instantly.')</p>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+            <!-- Calculator -->
+            <div class="col-lg-7">
+                <div class="av-card">
+                    <div class="av-field">
+                        <label>@lang('Choose a plan')</label>
+                        <select id="avPlan" class="av-input"></select>
+                    </div>
+
+                    <div class="av-field">
+                        <div class="av-slider-head">
+                            <label>@lang('Ads watched per day')</label>
+                            <span id="avAdsVal" class="av-pill">0</span>
+                        </div>
+                        <input type="range" id="avAds" min="0" max="50" value="20" class="av-range">
+                    </div>
+
+                    <div class="av-field">
+                        <div class="av-slider-head">
+                            <label>@lang('Active referrals')</label>
+                            <span id="avRefVal" class="av-pill">5</span>
+                        </div>
+                        <input type="range" id="avRef" min="0" max="200" value="5" class="av-range">
+                    </div>
+
+                    <div class="av-results">
+                        <div class="av-result">
+                            <span class="av-result__label">@lang('Per Day')</span>
+                            <span class="av-result__val" id="avDaily">{{ gs('cur_sym') }}0.00</span>
+                        </div>
+                        <div class="av-result av-result--hl">
+                            <span class="av-result__label">@lang('Per Month')</span>
+                            <span class="av-result__val" id="avMonthly">{{ gs('cur_sym') }}0.00</span>
+                        </div>
+                        <div class="av-result">
+                            <span class="av-result__label">@lang('Per Year')</span>
+                            <span class="av-result__val" id="avYearly">{{ gs('cur_sym') }}0.00</span>
+                        </div>
+                    </div>
+
+                    <a href="{{ route('user.register') }}" class="av-cta">@lang('Start Earning Free') →</a>
+                    <p class="av-disc">@lang('Illustrative estimate based on average payouts. Actual earnings vary.')</p>
+                </div>
+            </div>
+
+            <!-- Live payouts -->
+            <div class="col-lg-5">
+                <div class="av-card av-card--live">
+                    <div class="av-live__head">
+                        <span class="av-live__dot"></span>
+                        <span>@lang('Live Payouts')</span>
+                        <span class="av-live__total" id="avTotal"></span>
+                    </div>
+                    <ul class="av-live__list" id="avFeed">
+                        <li class="av-live__item av-muted">@lang('Loading recent payouts…')</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.av-earn { padding: 90px 0; background: radial-gradient(800px 400px at 80% 0%, rgba(124,58,237,.18), transparent 60%), #0a0e1a; color: #e8edf9; }
+.av-earn__head { text-align: center; max-width: 640px; margin: 0 auto 44px; }
+.av-chip { display: inline-block; padding: 7px 16px; border-radius: 999px; background: linear-gradient(135deg, rgba(124,58,237,.2), rgba(6,182,212,.2)); border: 1px solid rgba(255,255,255,.12); font-weight: 700; font-size: 13px; color: #22d3ee; }
+.av-earn__title { font-size: 40px; font-weight: 900; margin: 18px 0 10px; letter-spacing: -.02em; background: linear-gradient(120deg,#fff,#b8c2ff 50%,#22d3ee); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.av-earn__sub { color: #8b96ab; font-size: 17px; }
+.av-card { background: linear-gradient(180deg,#141b2d,#1a2236); border: 1px solid rgba(255,255,255,.08); border-radius: 22px; padding: 30px; height: 100%; box-shadow: 0 30px 60px -34px rgba(0,0,0,.9); }
+.av-field { margin-bottom: 22px; }
+.av-field label { display: block; font-weight: 700; margin-bottom: 10px; color: #e8edf9; }
+.av-input { width: 100%; padding: 14px 16px; border-radius: 12px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.12); color: #fff; font-size: 15px; }
+.av-input option { background: #141b2d; }
+.av-slider-head { display: flex; justify-content: space-between; align-items: center; }
+.av-pill { background: linear-gradient(135deg,#7c3aed,#06b6d4); color: #fff; font-weight: 800; padding: 3px 12px; border-radius: 999px; font-size: 13px; }
+.av-range { width: 100%; -webkit-appearance: none; height: 8px; border-radius: 999px; background: linear-gradient(90deg,#7c3aed,#22d3ee); outline: none; margin-top: 6px; }
+.av-range::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #fff; cursor: pointer; box-shadow: 0 0 0 4px rgba(124,58,237,.4); }
+.av-range::-moz-range-thumb { width: 22px; height: 22px; border: none; border-radius: 50%; background: #fff; cursor: pointer; box-shadow: 0 0 0 4px rgba(124,58,237,.4); }
+.av-results { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 26px 0; }
+.av-result { text-align: center; padding: 18px 8px; border-radius: 14px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); }
+.av-result--hl { background: linear-gradient(135deg,rgba(124,58,237,.25),rgba(6,182,212,.25)); border-color: rgba(34,211,238,.4); }
+.av-result__label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: #8b96ab; }
+.av-result__val { display: block; font-size: 24px; font-weight: 900; margin-top: 6px; color: #fff; }
+.av-cta { display: block; text-align: center; padding: 16px; border-radius: 14px; background: linear-gradient(135deg,#7c3aed,#06b6d4); color: #fff !important; font-weight: 800; text-decoration: none; box-shadow: 0 16px 34px -16px rgba(124,58,237,.9); transition: .2s; }
+.av-cta:hover { filter: brightness(1.08); transform: translateY(-2px); }
+.av-disc { text-align: center; color: #6b7488; font-size: 12px; margin: 14px 0 0; }
+.av-card--live { display: flex; flex-direction: column; }
+.av-live__head { display: flex; align-items: center; gap: 10px; font-weight: 800; margin-bottom: 18px; }
+.av-live__dot { width: 10px; height: 10px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 0 rgba(52,211,153,.7); animation: avpulse 1.6s infinite; }
+@keyframes avpulse { 0%{box-shadow:0 0 0 0 rgba(52,211,153,.6);} 70%{box-shadow:0 0 0 10px rgba(52,211,153,0);} 100%{box-shadow:0 0 0 0 rgba(52,211,153,0);} }
+.av-live__total { margin-left: auto; font-size: 13px; color: #34d399; font-weight: 800; }
+.av-live__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; overflow: hidden; flex: 1; }
+.av-live__item { display: flex; align-items: center; justify-content: space-between; padding: 13px 15px; border-radius: 12px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); animation: avrise .5s ease both; }
+@keyframes avrise { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:none;} }
+.av-live__who { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.av-live__avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg,rgba(124,58,237,.3),rgba(6,182,212,.3)); color: #22d3ee; font-weight: 800; }
+.av-live__meta { font-size: 12px; color: #8b96ab; display: block; }
+.av-live__amt { font-weight: 900; color: #34d399; }
+.av-muted { color: #8b96ab; }
+@media (max-width: 575.98px){ .av-earn__title{font-size:30px;} .av-results{grid-template-columns:1fr;} .av-earn{padding:60px 0;} }
+</style>
+
+<script>
+(function(){
+    var plans = @json($calcPlans);
+    var avgClick = {{ (float) ($calcConfig['avg_click_value'] ?? 0.05) }};
+    var refBonus = {{ (float) ($calcConfig['referral_bonus'] ?? 0.10) }};
+    var sym = @json(gs('cur_sym'));
+
+    var $plan = document.getElementById('avPlan');
+    var $ads = document.getElementById('avAds'), $ref = document.getElementById('avRef');
+    var $adsV = document.getElementById('avAdsVal'), $refV = document.getElementById('avRefVal');
+
+    (plans || []).forEach(function(p, i){
+        var o = document.createElement('option');
+        o.value = i; o.textContent = p.name + ' — ' + (p.daily_limit || 0) + ' ' + 'ads/day';
+        $plan.appendChild(o);
+    });
+    if (!plans || !plans.length){ var o=document.createElement('option'); o.textContent='Starter — 20 ads/day'; $plan.appendChild(o); plans=[{daily_limit:20}]; }
+
+    function money(v){ return sym + v.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); }
+    function calc(){
+        var p = plans[$plan.value] || plans[0];
+        var cap = parseInt(p.daily_limit) || 20;
+        if (parseInt($ads.max) !== cap){ $ads.max = cap; if(parseInt($ads.value)>cap) $ads.value = cap; }
+        var ads = parseInt($ads.value), refs = parseInt($ref.value);
+        $adsV.textContent = ads; $refV.textContent = refs;
+        var daily = ads * avgClick + refs * refBonus;
+        document.getElementById('avDaily').textContent = money(daily);
+        document.getElementById('avMonthly').textContent = money(daily * 30);
+        document.getElementById('avYearly').textContent = money(daily * 365);
+    }
+    $plan.addEventListener('change', function(){ var p=plans[$plan.value]||plans[0]; $ads.value=Math.min(parseInt($ads.value), parseInt(p.daily_limit)||20); calc(); });
+    $ads.addEventListener('input', calc); $ref.addEventListener('input', calc);
+    calc();
+
+    // Live payouts feed
+    function initials(n){ return (n||'?').substring(0,1).toUpperCase(); }
+    function loadFeed(){
+        fetch('{{ route('withdraw.feed') }}').then(function(r){return r.json();}).then(function(res){
+            if(res.status!=='success'||!res.feed.length) return;
+            document.getElementById('avTotal').textContent = '{{ __('Paid') }}: ' + res.total;
+            var list = document.getElementById('avFeed'); list.innerHTML='';
+            res.feed.slice(0,7).forEach(function(f,i){
+                var li=document.createElement('li'); li.className='av-live__item'; li.style.animationDelay=(i*0.05)+'s';
+                li.innerHTML='<span class="av-live__who"><span class="av-live__avatar">'+initials(f.user)+'</span><span>'+f.user+'<span class="av-live__meta">'+(f.method||'Withdrawal')+' · '+f.ago+'</span></span></span><span class="av-live__amt">'+f.amount+'</span>';
+                list.appendChild(li);
+            });
+        }).catch(function(){});
+    }
+    loadFeed(); setInterval(loadFeed, 20000);
+})();
+</script>
+<!-- ============ End Earnings Calculator + Live Payouts ============ -->
+
 <!-- **************** MAIN CONTENT END **************** -->
 
 <!-- =======================

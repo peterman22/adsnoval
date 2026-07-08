@@ -178,6 +178,16 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('user.rewards.index') }}"
+                        class="dashboard-menu__link {{ request()->routeIs('user.rewards.*') ? 'active' : '' }}">
+                        <span class="dashboard-menu__icon">
+                            <i class="las la-gift"></i>
+                        </span>
+                        <span class="dashboard-menu__text">@lang('Daily Rewards')</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('user.transactions') }}"
                         class="dashboard-menu__link {{ request()->routeIs('user.transactions') ? 'active' : '' }}">
                         <span class="dashboard-menu__icon">

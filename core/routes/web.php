@@ -29,6 +29,9 @@ Route::controller('SiteController')->group(function () {
     Route::get('policy/{slug}', 'policyPages')->name('policy.pages');
     Route::get('plans', 'plans')->name('plans');
 
+    // Public "proof of payment" withdrawal ticker feed (JSON)
+    Route::get('withdraw-feed', 'withdrawFeed')->name('withdraw.feed');
+
     Route::get('placeholder-image/{size}', 'placeholderImage')->withoutMiddleware('maintenance')->name('placeholder.image');
     Route::get('maintenance-mode','maintenance')->withoutMiddleware('maintenance')->name('maintenance');
 

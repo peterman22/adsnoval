@@ -12,6 +12,9 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (!Schema::hasTable('ptcs')) {
+            return;
+        }
         Schema::table('ptcs', function (Blueprint $table) {
             if (!Schema::hasColumn('ptcs', 'external_ref')) {
                 $table->string('external_ref')->nullable()->unique()->after('id');
