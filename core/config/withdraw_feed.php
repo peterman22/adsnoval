@@ -36,8 +36,8 @@ return [
     'total_per_day'     => env('WITHDRAW_FEED_TOTAL_PER_DAY', 8400),
     'total_anchor_date' => env('WITHDRAW_FEED_TOTAL_ANCHOR', '2025-01-01'),
 
-    // Payout methods drawn at random for simulated entries.
-    'methods' => ['USDT', 'Bitcoin', 'PayPal', 'Bank Transfer', 'Payeer', 'Perfect Money', 'Skrill', 'Litecoin', 'BNB'],
+    // Payout methods drawn at random for simulated entries (crypto only).
+    'methods' => ['USDT', 'Bitcoin', 'Ethereum', 'Litecoin', 'BNB', 'Tron', 'USDC', 'Solana'],
 
     // First-name pool used to build believable, then-masked usernames.
     'names' => [

@@ -85,16 +85,16 @@ body.neon-app .dashboard-widget {
     overflow: hidden;
 }
 body.neon-app .dashboard-widget__icon {
-    width: 54px; height: 54px; flex: 0 0 54px;
+    width: 30px !important; height: 30px !important; flex: 0 0 30px;
     display: grid; place-items: center;
-    border-radius: 14px;
-    font-size: 22px; color: #fff;
+    border-radius: 9px;
+    font-size: 14px; color: #fff;
     background: var(--neon-grad-soft);
     border: 1px solid var(--neon-border-2);
     color: var(--neon-accent);
 }
 body.neon-app .dashboard-widget__amount { color: var(--neon-text) !important; font-weight: 800; font-size: 18px; }
-body.neon-app .dashboard-widget__overlay-icon { position: absolute; right: -8px; bottom: -14px; font-size: 82px; opacity: .05; color: #fff; }
+body.neon-app .dashboard-widget__overlay-icon { position: absolute; right: -8px; bottom: -14px; font-size: 50px; opacity: .05; color: #fff; }
 body.neon-app .widget-container__head { border: none !important; padding-bottom: 0 !important; }
 
 /* Accent variants (add class alongside .widget-container) */
@@ -193,7 +193,7 @@ body.neon-app label, body.neon-app .card-title { color: var(--neon-text) !import
 @keyframes neon-pulse { 0% { box-shadow: 0 0 0 0 rgba(52,211,153,.6);} 70% { box-shadow: 0 0 0 10px rgba(52,211,153,0);} 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0);} }
 .neon-ticker__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; overflow: hidden; }
 .neon-ticker__item {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px;
     padding: 12px 14px; border-radius: 12px;
     background: rgba(255,255,255,.03); border: 1px solid var(--neon-border);
     animation: neon-rise .5s ease both;
@@ -205,7 +205,7 @@ body.neon-app label, body.neon-app .card-title { color: var(--neon-text) !import
 .neon-ticker__who > span:last-child,
 .neon-ticker__meta { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
 .neon-ticker__avatar { width: 30px; height: 30px; flex: 0 0 30px; border-radius: 50%; display: grid; place-items: center; background: var(--neon-grad-soft); color: var(--neon-accent); font-weight: 800; font-size: 13px; }
-.neon-ticker__amt { font-weight: 800; font-size: 14px; color: var(--neon-green); white-space: nowrap; flex: 0 0 auto; text-align: right; font-variant-numeric: tabular-nums; }
+.neon-ticker__amt { font-weight: 800; font-size: 14px; color: var(--neon-green); white-space: nowrap; justify-self: end; text-align: right; font-variant-numeric: tabular-nums; }
 .neon-ticker__meta { font-size: 11px; color: var(--neon-muted); }
 .neon-ticker__live { font-size: 13px; }
 /* On wide desktops give the payout list room to breathe */
@@ -474,3 +474,51 @@ body.neon-app .btn-close { filter: invert(1) grayscale(1) brightness(1.6); }
     body.neon-app .dashboard-menu__body { background: transparent !important; padding: 12px !important; }
     body.neon-app .dashboard-menu__link, body.neon-app .accordion-button { font-size: 15px; }
 }
+
+/* =====================================================================
+   PAGE-SPECIFIC FIXES — deposit & pricing (were white bg / invisible text)
+   ===================================================================== */
+
+/* ---- Deposit / payment gateway page ---- */
+body.neon-app .gateway-card,
+body.neon-app .payment-system-list,
+body.neon-app .payment-item,
+body.neon-app .deposit-info,
+body.neon-app .preview-details,
+body.neon-app .payment-preview-card {
+    background: linear-gradient(180deg, var(--neon-surface), var(--neon-surface-2)) !important;
+    border-color: var(--neon-border) !important;
+    color: var(--neon-text) !important;
+}
+body.neon-app .payment-system-list { --border-color: rgba(255,255,255,.08); }
+body.neon-app .payment-item { border: 1px solid var(--neon-border) !important; border-left: 3px solid transparent !important; }
+body.neon-app .payment-item:has(.payment-item__radio:checked) { border-left: 3px solid var(--neon-accent) !important; background: rgba(34,211,238,.06) !important; }
+body.neon-app .payment-item__name,
+body.neon-app .payment-item__info,
+body.neon-app .gateway-limit,
+body.neon-app .deposit-info * { color: var(--neon-text) !important; }
+body.neon-app .payment-item__thumb { background: rgba(255,255,255,.9) !important; border-radius: 8px; }
+
+/* ---- Pricing / plans page ---- */
+body.neon-app .pricing {
+    background: linear-gradient(180deg, var(--neon-surface), var(--neon-surface-2)) !important;
+    border: 1px solid var(--neon-border) !important;
+    color: var(--neon-text) !important;
+}
+body.neon-app .pricing--popular {
+    border: 1px solid rgba(124,58,237,.5) !important;
+    box-shadow: 0 24px 50px -28px rgba(124,58,237,.8) !important;
+}
+body.neon-app .pricing__title,
+body.neon-app .pricing__amount,
+body.neon-app .pricing__currency,
+body.neon-app .pricing__sub-title,
+body.neon-app .pricing__text,
+body.neon-app .pricing__duration,
+body.neon-app .pricing__feature,
+body.neon-app .pricing__feature li,
+body.neon-app .pricing__list li { color: var(--neon-text) !important; }
+body.neon-app .pricing__sub-title,
+body.neon-app .pricing__text,
+body.neon-app .pricing__duration { color: var(--neon-muted) !important; }
+body.neon-app .pricing__head { border-color: var(--neon-border) !important; }
