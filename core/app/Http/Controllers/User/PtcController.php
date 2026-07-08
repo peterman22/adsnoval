@@ -70,7 +70,7 @@ class PtcController extends Controller
 
         $viewads = PtcView::where('user_id', $user->id)->whereDate('view_date', now())->get();
 
-        if ($viewads->count() >= $user->daily_limit) {
+        if ($viewads->count() >= $user->daily_limit + $user->free_ad_credits) {
             $notify[] = ['error', 'Oops! Your limit is over. You cannot see more ads today'];
             return back()->withNotify($notify);
         }
@@ -164,9 +164,10 @@ class PtcController extends Controller
             return back()->withNotify($notify);
         }
 
-        $viewAds = PtcView::where('user_id', $user->id)->whereDate('view_date', now());
+        $viewAds     = PtcView::where('user_id', $user->id)->whereDate('view_date', now());
+        $todayCount  = $viewAds->count();
 
-        if ($viewAds->count() >= $user->daily_limit) {
+        if ($todayCount >= $user->daily_limit + $user->free_ad_credits) {
             $notify[] = ['error', 'You\'ve crossed the daily ad view limit'];
             return back()->withNotify($notify);
         }
@@ -182,6 +183,11 @@ class PtcController extends Controller
 
         $user->balance += $ptc->amount;
         $user->save();
+
+        // This view went beyond the base daily allowance → spend a free-ad credit.
+        if ($todayCount >= $user->daily_limit && $user->free_ad_credits > 0) {
+            $user->decrement('free_ad_credits');
+        }
 
         $trx                       = getTrx();
         $transaction               = new Transaction();

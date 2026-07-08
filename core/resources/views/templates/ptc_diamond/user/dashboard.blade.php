@@ -3,7 +3,7 @@
     @php
         $kyc          = getContent('kyc.content', true);
         $todayClicks  = $user->clicks->where('view_date', Date('Y-m-d'))->count();
-        $remainClicks = max(0, $user->daily_limit - $todayClicks);
+        $remainClicks = max(0, ($user->daily_limit + (int) ($user->free_ad_credits ?? 0)) - $todayClicks);
         $streak       = (int) ($user->streak_count ?? 0);
         $checkedToday = (string) ($user->last_check_in ?? '') === \Carbon\Carbon::today()->toDateString();
         $spunToday    = (string) ($user->last_spin_at ?? '') === \Carbon\Carbon::today()->toDateString();

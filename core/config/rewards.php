@@ -14,20 +14,28 @@
 return [
 
     /*
-    | Spin-the-wheel. One free spin per calendar day. Each segment has a
-    | display label, a payout amount, and a weight (relative probability).
-    | Higher weight = more likely. Order here = order around the wheel.
+    | Spin-the-wheel. One free spin per calendar day.
+    |
+    | Each segment has a display label and a `type`:
+    |   - 'cash'    : credits `amount` to balance. `weight` = relative odds.
+    |   - 'free_ad' : grants 1 free-ad credit. Only landed on every
+    |                 `free_ad_every` spins (never via weight).
+    |   - 'decoy'   : shown on the wheel for excitement but NEVER awarded
+    |                 (the big $50 / $100 slices).
+    | Order here = order of slices around the wheel.
     */
     'spin' => [
-        'enabled'  => env('SPIN_ENABLED', true),
-        'segments' => [
-            ['label' => '0.01', 'amount' => 0.01, 'weight' => 30],
-            ['label' => '0.05', 'amount' => 0.05, 'weight' => 25],
-            ['label' => '0.10', 'amount' => 0.10, 'weight' => 20],
-            ['label' => '0.25', 'amount' => 0.25, 'weight' => 12],
-            ['label' => '0.50', 'amount' => 0.50, 'weight' => 8],
-            ['label' => '1.00', 'amount' => 1.00, 'weight' => 4],
-            ['label' => 'JACKPOT', 'amount' => 5.00, 'weight' => 1],
+        'enabled'       => env('SPIN_ENABLED', true),
+        'free_ad_every' => env('SPIN_FREE_AD_EVERY', 5), // 1 Free Ad wins on every Nth spin
+        'segments'      => [
+            ['label' => '$0.01',     'type' => 'cash',    'amount' => 0.01, 'weight' => 26],
+            ['label' => '$50',       'type' => 'decoy',   'amount' => 50.0, 'weight' => 0],
+            ['label' => '$0.03',     'type' => 'cash',    'amount' => 0.03, 'weight' => 22],
+            ['label' => '1 Free Ad', 'type' => 'free_ad', 'amount' => 0.0,  'weight' => 0],
+            ['label' => '$0.05',     'type' => 'cash',    'amount' => 0.05, 'weight' => 18],
+            ['label' => '$100',      'type' => 'decoy',   'amount' => 100.0,'weight' => 0],
+            ['label' => '$0.02',     'type' => 'cash',    'amount' => 0.02, 'weight' => 24],
+            ['label' => '$0.08',     'type' => 'cash',    'amount' => 0.08, 'weight' => 12],
         ],
     ],
 

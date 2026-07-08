@@ -78,8 +78,12 @@ class RewardService
     }
 
     /**
-     * Perform a weighted spin. Returns ['index' => int, 'amount' => float,
-     * 'label' => string]. Throws if the user already spun today.
+     * Perform the daily spin. Every `free_ad_every` spins lands on the
+     * "1 Free Ad" slice; otherwise a weighted cash slice is chosen. Decoy
+     * slices ($50/$100) are shown on the wheel but never awarded.
+     *
+     * Returns ['index' => int, 'type' => string, 'amount' => float,
+     * 'label' => string, 'free_ad_credits' => int].
      */
     public function spin(User $user): array
     {
@@ -87,36 +91,71 @@ class RewardService
             throw new RewardException('You have already spun today. Come back tomorrow for another free spin!');
         }
 
-        $segments = config('rewards.spin.segments', []);
-        $index    = $this->weightedPick($segments);
-        $segment  = $segments[$index];
-        $amount   = (float) $segment['amount'];
+        $segments   = config('rewards.spin.segments', []);
+        $everyN      = max(1, (int) config('rewards.spin.free_ad_every', 5));
+        $spinNumber = (int) $user->spin_count + 1;
 
-        $user->balance      = (float) $user->balance + $amount;
+        // Decide the winning slice index.
+        if ($spinNumber % $everyN === 0 && ($freeAdIndex = $this->indexOfType($segments, 'free_ad')) !== null) {
+            $index = $freeAdIndex;
+        } else {
+            $index = $this->weightedCashPick($segments);
+        }
+
+        $segment = $segments[$index];
+        $type    = $segment['type'] ?? 'cash';
+        $amount  = (float) ($segment['amount'] ?? 0);
+
+        $user->spin_count   = $spinNumber;
         $user->last_spin_at = Carbon::today()->toDateString();
-        $user->save();
 
-        $this->credit($user, $amount, 'spin_reward', 'Spin the wheel reward');
+        if ($type === 'free_ad') {
+            $user->free_ad_credits = (int) $user->free_ad_credits + 1;
+            $amount = 0.0;
+            $user->save();
+        } else { // cash
+            $user->balance = (float) $user->balance + $amount;
+            $user->save();
+            $this->credit($user, $amount, 'spin_reward', 'Spin the wheel reward');
+        }
 
-        return ['index' => $index, 'amount' => $amount, 'label' => $segment['label']];
+        return [
+            'index'           => $index,
+            'type'            => $type,
+            'amount'          => $amount,
+            'label'           => $segment['label'],
+            'free_ad_credits' => (int) $user->free_ad_credits,
+        ];
     }
 
-    /** Pick a segment index proportional to its weight. */
-    protected function weightedPick(array $segments): int
+    /** First index whose segment matches the given type, or null. */
+    protected function indexOfType(array $segments, string $type): ?int
     {
-        $total = array_sum(array_column($segments, 'weight'));
+        foreach ($segments as $i => $s) {
+            if (($s['type'] ?? 'cash') === $type) {
+                return $i;
+            }
+        }
+        return null;
+    }
+
+    /** Pick a cash slice index proportional to its weight (ignores decoy/free_ad). */
+    protected function weightedCashPick(array $segments): int
+    {
+        $cash = array_filter($segments, fn ($s) => ($s['type'] ?? 'cash') === 'cash' && (int) ($s['weight'] ?? 0) > 0);
+        $total = array_sum(array_map(fn ($s) => (int) $s['weight'], $cash));
         if ($total <= 0) {
-            return 0;
+            return array_key_first($cash) ?? 0;
         }
         $roll = random_int(1, $total);
         $acc  = 0;
-        foreach ($segments as $i => $segment) {
+        foreach ($cash as $i => $segment) {
             $acc += (int) $segment['weight'];
             if ($roll <= $acc) {
                 return $i;
             }
         }
-        return count($segments) - 1;
+        return array_key_last($cash);
     }
 
     /* ----------------------------- Shared ------------------------------ */

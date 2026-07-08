@@ -52,8 +52,12 @@
                     </button>
                 </div>
 
-                <p class="text-muted mt-4 mb-0" id="spinResult">
+                <p class="text-muted mt-4 mb-1" id="spinResult">
                     {{ $canSpin ? __('Tap SPIN to try your luck!') : __('You have already spun today.') }}
+                </p>
+                <p class="text-muted mb-0" style="font-size:13px;">
+                    🎟️ @lang('Free Ads'): <b id="freeAdCount" style="color:var(--neon-accent)">{{ (int) ($user->free_ad_credits ?? 0) }}</b>
+                    <span class="d-block mt-1" style="opacity:.75;">@lang('Win 1 Free Ad every') {{ config('rewards.spin.free_ad_every') }} @lang('spins')</span>
                 </p>
             </div>
         </div>
@@ -139,8 +143,10 @@
                         var rotation = spun * 360 - target;
                         $wheel.css('transform', 'rotate(' + rotation + 'deg)');
                         setTimeout(function() {
-                            $res.html('🎉 {{ __('You won') }} <b style="color:var(--neon-green)">' + res.label + '</b>!');
+                            var prize = res.type === 'free_ad' ? '1 Free Ad 🎟️' : res.label;
+                            $res.html('🎉 {{ __('You won') }} <b style="color:var(--neon-green)">' + prize + '</b>!');
                             $('#rewardBalance').text(res.balance);
+                            $('#freeAdCount').text(res.free_ad_credits);
                             if (typeof iziToast !== 'undefined') {
                                 iziToast.success({ title: '{{ __('Reward') }}', message: res.message, position: 'topRight' });
                             }

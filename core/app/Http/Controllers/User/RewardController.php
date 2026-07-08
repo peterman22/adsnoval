@@ -68,17 +68,23 @@ class RewardController extends Controller
             return back()->withNotify([['error', $e->getMessage()]]);
         }
 
+        $message = $result['type'] === 'free_ad'
+            ? 'You won 1 Free Ad!'
+            : 'You won ' . showAmount($result['amount']) . '!';
+
         if ($request->ajax()) {
             return response()->json([
-                'status'  => 'success',
-                'index'   => $result['index'],
-                'amount'  => $result['amount'],
-                'label'   => $result['label'],
-                'balance' => showAmount(auth()->user()->balance),
-                'message' => 'You won ' . showAmount($result['amount']) . '!',
+                'status'          => 'success',
+                'index'           => $result['index'],
+                'type'            => $result['type'],
+                'amount'          => $result['amount'],
+                'label'           => $result['label'],
+                'free_ad_credits' => $result['free_ad_credits'],
+                'balance'         => showAmount(auth()->user()->balance),
+                'message'         => $message,
             ]);
         }
 
-        return back()->withNotify([['success', 'You won ' . showAmount($result['amount']) . '!']]);
+        return back()->withNotify([['success', $message]]);
     }
 }
