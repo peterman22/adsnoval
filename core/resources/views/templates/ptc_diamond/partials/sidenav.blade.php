@@ -1,23 +1,12 @@
 <div class="dashboard-sidebar">
-    <div class="primary-widget mb-3">
-        <span class="primary-widget__subtitle">@lang('My Balance')</span>
-        <h4 class="primary-widget__title">{{ showAmount(auth()->user()->balance) }}</h4>
-        <ul class="list list--row  justify-content-center flex-wrap primary-widget__list">
-            <li>
-                <a href="{{ route('plans') }}" class="btn btn--base btn--md">
-                    @lang('Upgrade')
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('user.withdraw') }}" class="btn btn--light btn--md">
-                    @lang('Withdraw')
-                </a>
-            </li>
-        </ul>
-    </div>
     <div class="dashboard-sidebar__nav-toggle">
-        <span class="dashboard-sidebar__nav-toggle-text">@lang('My Account')</span>
-        <button type="button" class="btn dashboard-sidebar__nav-toggle-btn">
+        <span class="dashboard-sidebar__nav-toggle-text">
+            <span class="nav-toggle-balance">
+                <span class="nav-toggle-balance__label">@lang('Balance')</span>
+                <span class="nav-toggle-balance__value">{{ showAmount(auth()->user()->balance) }}</span>
+            </span>
+        </span>
+        <button type="button" class="btn dashboard-sidebar__nav-toggle-btn" aria-label="@lang('Open menu')">
             <i class="las la-bars"></i>
         </button>
     </div>

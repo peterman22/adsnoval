@@ -192,10 +192,20 @@
 
 
 <script>
-
-
-
-
+    // Close the mobile menu drawer when tapping the dimmed backdrop (outside the drawer)
+    (function($) {
+        "use strict";
+        $(document).on('click touchstart', function(e) {
+            if (!$('body').hasClass('dashboard-menu-open')) return;
+            if ($(e.target).closest('.dashboard-menu, .dashboard-sidebar__nav-toggle').length === 0) {
+                $('body').removeClass('dashboard-menu-open');
+            }
+        });
+        $(document).on('keyup', function(e) {
+            if (e.key === 'Escape') $('body').removeClass('dashboard-menu-open');
+        });
+    })(jQuery);
+</script>
 
 </body>
 

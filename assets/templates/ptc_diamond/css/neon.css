@@ -418,3 +418,58 @@ body.neon-app .page-item.active .page-link { background: var(--neon-grad) !impor
 /* Modal / dropdown structural bits */
 body.neon-app .modal-header, body.neon-app .modal-footer { border-color: var(--neon-border) !important; }
 body.neon-app .btn-close { filter: invert(1) grayscale(1) brightness(1.6); }
+
+/* =====================================================================
+   MODERN MOBILE MENU (< 992px) — dark toggle bar + slide-in drawer
+   ===================================================================== */
+@media (max-width: 991.98px) {
+    /* Top bar: compact balance + hamburger */
+    body.neon-app .dashboard-sidebar__nav-toggle {
+        background: linear-gradient(135deg, var(--neon-surface), var(--neon-surface-2)) !important;
+        border: 1px solid var(--neon-border-2) !important;
+        box-shadow: 0 14px 30px -20px rgba(0,0,0,.9) !important;
+        border-radius: 16px !important;
+        padding: 12px 14px 12px 18px !important;
+    }
+    body.neon-app .nav-toggle-balance { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
+    body.neon-app .nav-toggle-balance__label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--neon-muted); }
+    body.neon-app .nav-toggle-balance__value {
+        font-size: 20px; font-weight: 800;
+        background: linear-gradient(120deg,#fff,#b8c2ff 45%,var(--neon-accent));
+        -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    body.neon-app .dashboard-sidebar__nav-toggle-text { text-transform: none; }
+    body.neon-app .dashboard-sidebar__nav-toggle-btn {
+        width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center;
+        background: var(--neon-grad) !important; color: #fff !important; font-size: 22px;
+        box-shadow: 0 12px 24px -12px rgba(124,58,237,.9) !important;
+    }
+
+    /* Slide-in drawer instead of full-screen panel */
+    body.neon-app .dashboard-menu {
+        inset: 0 auto 0 0 !important;
+        width: min(86vw, 360px) !important;
+        border-radius: 0 22px 22px 0 !important;
+        border: 1px solid var(--neon-border) !important;
+        border-left: none !important;
+        box-shadow: 30px 0 80px -20px rgba(0,0,0,.85) !important;
+        padding: 0 !important;
+        overflow: hidden;
+    }
+    /* Dimmed, blurred backdrop when open */
+    body.neon-app.dashboard-menu-open::before {
+        content: ""; position: fixed; inset: 0; z-index: 1020;
+        background: rgba(4,7,15,.6); backdrop-filter: blur(4px);
+        animation: neon-rise .25s ease both;
+    }
+    /* Gradient drawer header */
+    body.neon-app .dashboard-menu__head {
+        background: var(--neon-grad) !important;
+        border-bottom: none !important;
+        padding: 18px 8px 18px 20px;
+    }
+    body.neon-app .dashboard-menu__head-text { color: #fff !important; font-weight: 800; font-size: 16px; padding-left: 0; }
+    body.neon-app .dashboard-menu__head-close { color: #fff !important; border-left: none !important; }
+    body.neon-app .dashboard-menu__body { background: transparent !important; padding: 12px !important; }
+    body.neon-app .dashboard-menu__link, body.neon-app .accordion-button { font-size: 15px; }
+}
