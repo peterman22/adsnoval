@@ -224,7 +224,7 @@
                     data: [@foreach ($chart['amount'] as $amount){{ $amount }},@endforeach]
                 }],
                 chart: { type: 'bar', height: 380, toolbar: { show: false }, foreColor: '#8b96ab' },
-                colors: ['#7c3aed', '#22d3ee'],
+                colors: ['#7c3aed', '#ff9142'],
                 plotOptions: { bar: { horizontal: false, columnWidth: '55%', borderRadius: 6 } },
                 dataLabels: { enabled: false },
                 stroke: { show: true, width: 2, colors: ['transparent'] },

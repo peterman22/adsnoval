@@ -32,10 +32,10 @@
         :root {
             --bg: #0a0e1a; --surface: #141b2d; --surface-2: #1a2236;
             --border: rgba(255,255,255,.08); --border-2: rgba(255,255,255,.14);
-            --accent: #22d3ee; --primary: #7c3aed; --green: #34d399; --red: #f472b6;
+            --accent: #ff9142; --primary: #7c3aed; --green: #34d399; --red: #f472b6;
             --text: #e8edf9; --muted: #8b96ab;
-            --grad: linear-gradient(135deg, #7c3aed 0%, #4f46e5 45%, #06b6d4 100%);
-            --grad-soft: linear-gradient(135deg, rgba(124,58,237,.18), rgba(6,182,212,.18));
+            --grad: linear-gradient(135deg, #7c3aed 0%, #9333ea 45%, #f97316 100%);
+            --grad-soft: linear-gradient(135deg, rgba(124,58,237,.18), rgba(249,115,22,.18));
         }
         * { box-sizing: border-box; }
         body {
@@ -43,7 +43,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background:
                 radial-gradient(1000px 500px at 85% -10%, rgba(124,58,237,.18), transparent 60%),
-                radial-gradient(800px 400px at -10% 10%, rgba(6,182,212,.14), transparent 55%),
+                radial-gradient(800px 400px at -10% 10%, rgba(249,115,22,.14), transparent 55%),
                 var(--bg);
             display: flex; flex-direction: column;
         }
@@ -128,8 +128,8 @@
             width: 54px; height: 42px; text-align: center; font-weight: 800; font-size: 16px;
             border-radius: 10px; border: 1px solid var(--border-2); background: rgba(255,255,255,.05); color: var(--text);
         }
-        .inputcaptcha[readonly] { color: var(--accent); background: rgba(34,211,238,.08); }
-        #cap_result:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(34,211,238,.18); }
+        .inputcaptcha[readonly] { color: var(--accent); background: rgba(255,145,66,.08); }
+        #cap_result:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,145,66,.18); }
         .ad-actions { margin-left: auto; display: flex; gap: 10px; align-items: center; }
 
         .btn { border: 0; border-radius: 12px; padding: 11px 22px; font-weight: 700; font-size: 15px; cursor: pointer; transition: .18s; }
@@ -148,7 +148,7 @@
         .form-control, .form-select {
             background: rgba(255,255,255,.05) !important; border: 1px solid var(--border-2) !important; color: var(--text) !important; border-radius: 10px;
         }
-        .form-control:focus, .form-select:focus { border-color: var(--accent) !important; box-shadow: 0 0 0 3px rgba(34,211,238,.15) !important; }
+        .form-control:focus, .form-select:focus { border-color: var(--accent) !important; box-shadow: 0 0 0 3px rgba(255,145,66,.15) !important; }
         .form-select option { background: var(--surface); }
         textarea.form-control { min-height: 120px; }
         .modal .btn-primary { background: var(--grad); border: none; padding: .7rem 1rem; font-weight: 700; border-radius: 12px; }

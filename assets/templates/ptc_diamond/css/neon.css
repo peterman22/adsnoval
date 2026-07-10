@@ -13,14 +13,14 @@
     --neon-border:    rgba(255, 255, 255, .07);
     --neon-border-2:  rgba(255, 255, 255, .12);
     --neon-primary:   #7c3aed;
-    --neon-accent:    #22d3ee;
+    --neon-accent:    #ff9142;
     --neon-green:     #34d399;
     --neon-amber:     #fbbf24;
     --neon-pink:      #f472b6;
     --neon-text:      #e8edf9;
     --neon-muted:     #8b96ab;
-    --neon-grad:      linear-gradient(135deg, #7c3aed 0%, #4f46e5 45%, #06b6d4 100%);
-    --neon-grad-soft: linear-gradient(135deg, rgba(124,58,237,.18), rgba(6,182,212,.18));
+    --neon-grad:      linear-gradient(135deg, #7c3aed 0%, #9333ea 45%, #f97316 100%);
+    --neon-grad-soft: linear-gradient(135deg, rgba(124,58,237,.18), rgba(249,115,22,.18));
     --neon-glow:      0 0 0 1px rgba(124,58,237,.25), 0 18px 40px -18px rgba(124,58,237,.55);
     --neon-radius:    18px;
 }
@@ -29,7 +29,7 @@
 body.neon-app {
     background:
         radial-gradient(1200px 600px at 85% -10%, rgba(124,58,237,.18), transparent 60%),
-        radial-gradient(900px 500px at -10% 20%, rgba(6,182,212,.14), transparent 55%),
+        radial-gradient(900px 500px at -10% 20%, rgba(249,115,22,.14), transparent 55%),
         var(--neon-bg) !important;
     color: var(--neon-text) !important;
     min-height: 100vh;
@@ -101,7 +101,7 @@ body.neon-app .widget-container__head { border: none !important; padding-bottom:
 body.neon-app .nw--green .dashboard-widget__icon { color: var(--neon-green);  box-shadow: inset 0 0 0 1px rgba(52,211,153,.35); }
 body.neon-app .nw--amber .dashboard-widget__icon { color: var(--neon-amber);  box-shadow: inset 0 0 0 1px rgba(251,191,36,.35); }
 body.neon-app .nw--pink  .dashboard-widget__icon { color: var(--neon-pink);   box-shadow: inset 0 0 0 1px rgba(244,114,182,.35); }
-body.neon-app .nw--cyan  .dashboard-widget__icon { color: var(--neon-accent); box-shadow: inset 0 0 0 1px rgba(34,211,238,.35); }
+body.neon-app .nw--cyan  .dashboard-widget__icon { color: var(--neon-accent); box-shadow: inset 0 0 0 1px rgba(255,145,66,.35); }
 
 /* ---- Sidebar menu ------------------------------------------------- */
 body.neon-app .dashboard-menu { padding: 10px !important; }
@@ -125,7 +125,7 @@ body.neon-app .dashboard-menu__icon,
 body.neon-app .accordion-button__icon { color: inherit !important; }
 body.neon-app .dashboard-menu__inner-link { color: var(--neon-muted) !important; border-radius: 10px; }
 body.neon-app .dashboard-menu__inner-link:hover,
-body.neon-app .dashboard-menu__inner-link.active { color: var(--neon-accent) !important; background: rgba(34,211,238,.08) !important; }
+body.neon-app .dashboard-menu__inner-link.active { color: var(--neon-accent) !important; background: rgba(255,145,66,.08) !important; }
 body.neon-app .accordion-item { background: transparent !important; border: none !important; }
 body.neon-app .accordion-button::after { filter: invert(1) opacity(.6); }
 
@@ -168,7 +168,7 @@ body.neon-app input.form-control {
     color: var(--neon-text) !important;
     border-radius: 12px !important;
 }
-body.neon-app .form-control:focus { border-color: var(--neon-accent) !important; box-shadow: 0 0 0 3px rgba(34,211,238,.15) !important; }
+body.neon-app .form-control:focus { border-color: var(--neon-accent) !important; box-shadow: 0 0 0 3px rgba(255,145,66,.15) !important; }
 body.neon-app label, body.neon-app .card-title { color: var(--neon-text) !important; }
 
 /* ---- Section titles ---------------------------------------------- */
@@ -237,7 +237,7 @@ body.neon-app label, body.neon-app .card-title { color: var(--neon-text) !import
     border-radius: 22px;
     overflow: hidden;
     background:
-        radial-gradient(600px 200px at 100% -40%, rgba(34,211,238,.25), transparent 60%),
+        radial-gradient(600px 200px at 100% -40%, rgba(255,145,66,.25), transparent 60%),
         linear-gradient(120deg, #171e33 0%, #1b2340 55%, #241a3d 100%);
     border: 1px solid var(--neon-border-2);
     box-shadow: 0 30px 60px -34px rgba(0,0,0,.9);
@@ -257,7 +257,7 @@ body.neon-app label, body.neon-app .card-title { color: var(--neon-text) !import
 .neon-hero__balance-label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--neon-muted); }
 .neon-hero__balance-value {
     display: block; font-size: 27px; font-weight: 900; line-height: 1.15; margin: 3px 0 12px;
-    background: linear-gradient(120deg, #fff, #b8c2ff 40%, var(--neon-accent));
+    background: linear-gradient(120deg, #fff, #ffd0a8 40%, var(--neon-accent));
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
 .neon-hero__actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
@@ -436,7 +436,7 @@ body.neon-app .btn-close { filter: invert(1) grayscale(1) brightness(1.6); }
     body.neon-app .nav-toggle-balance__label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--neon-muted); }
     body.neon-app .nav-toggle-balance__value {
         font-size: 20px; font-weight: 800;
-        background: linear-gradient(120deg,#fff,#b8c2ff 45%,var(--neon-accent));
+        background: linear-gradient(120deg,#fff,#ffd0a8 45%,var(--neon-accent));
         -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     }
     body.neon-app .dashboard-sidebar__nav-toggle-text { text-transform: none; }
@@ -492,7 +492,7 @@ body.neon-app .payment-preview-card {
 }
 body.neon-app .payment-system-list { --border-color: rgba(255,255,255,.08); }
 body.neon-app .payment-item { border: 1px solid var(--neon-border) !important; border-left: 3px solid transparent !important; }
-body.neon-app .payment-item:has(.payment-item__radio:checked) { border-left: 3px solid var(--neon-accent) !important; background: rgba(34,211,238,.06) !important; }
+body.neon-app .payment-item:has(.payment-item__radio:checked) { border-left: 3px solid var(--neon-accent) !important; background: rgba(255,145,66,.06) !important; }
 body.neon-app .payment-item__name,
 body.neon-app .payment-item__info,
 body.neon-app .gateway-limit,
@@ -562,7 +562,7 @@ body.neon-app .verification-area .form-control {
 body.neon-app .login-form .form-control::placeholder { color: #6b7488 !important; }
 body.neon-app .login-form .form-control:focus {
     border-color: var(--neon-accent) !important;
-    box-shadow: 0 0 0 3px rgba(34,211,238,.16) !important;
+    box-shadow: 0 0 0 3px rgba(255,145,66,.16) !important;
     background: rgba(255,255,255,.06) !important;
 }
 
