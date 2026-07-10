@@ -676,42 +676,42 @@ Screen gallery and feature START -->
 				<div class="swiper-wrapper align-items-center">
 					<!-- Image -->
 					<div class="swiper-slide">
-						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-01.jpg" class="rounded-4 border border-secondary border-3" alt="mobile screen">
+						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-01.png" class="rounded-4 border border-secondary border-3" alt="mobile screen">
 					</div>
 
 					<!-- Image -->
 					<div class="swiper-slide">
-						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-02.jpg" class="rounded-4 border border-secondary border-3" alt="mobile screen">
+						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-02.png" class="rounded-4 border border-secondary border-3" alt="mobile screen">
 					</div>
 
 					<!-- Image -->
 					<div class="swiper-slide">
-						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-03.jpg" class="rounded-4 border border-secondary border-3" alt="mobile screen">
+						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-03.png" class="rounded-4 border border-secondary border-3" alt="mobile screen">
 					</div>
 
 					<!-- Image -->
 					<div class="swiper-slide">
-						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-04.jpg" class="rounded-4 border border-secondary border-3" alt="mobile screen">
+						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-04.png" class="rounded-4 border border-secondary border-3" alt="mobile screen">
 					</div>
 
 					<!-- Image -->
 					<div class="swiper-slide">
-						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-05.jpg" class="rounded-4 border border-secondary border-3" alt="mobile screen">
+						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-05.png" class="rounded-4 border border-secondary border-3" alt="mobile screen">
 					</div>
 
 					<!-- Image -->
 					<div class="swiper-slide">
-						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-06.jpg" class="rounded-4 border border-secondary border-3" alt="mobile screen">
+						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-06.png" class="rounded-4 border border-secondary border-3" alt="mobile screen">
 					</div>
 
 					<!-- Image -->
 					<div class="swiper-slide">
-						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-07.jpg" class="rounded-4 border border-secondary border-3" alt="mobile screen">
+						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-07.png" class="rounded-4 border border-secondary border-3" alt="mobile screen">
 					</div>
 
 					<!-- Image -->
 					<div class="swiper-slide">
-						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-08.jpg" class="rounded-4 border border-secondary border-3" alt="mobile screen">
+						<img src="core/resources/views/templates/ptc_diamond/home/assets/images/mobile-app/screen/s-08.png" class="rounded-4 border border-secondary border-3" alt="mobile screen">
 					</div>
 				</div>
 
