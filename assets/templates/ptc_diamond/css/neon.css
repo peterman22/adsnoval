@@ -522,3 +522,88 @@ body.neon-app .pricing__sub-title,
 body.neon-app .pricing__text,
 body.neon-app .pricing__duration { color: var(--neon-muted) !important; }
 body.neon-app .pricing__head { border-color: var(--neon-border) !important; }
+
+/* =====================================================================
+   AUTH FLOW — login / register / password reset / verification code
+   Overrides the per-page white styles so every auth screen is dark-neon.
+   ===================================================================== */
+
+/* Full-screen auth canvas */
+body.neon-app .login-wrapper-fullscreen,
+body.neon-app .login-section {
+    background: transparent !important;
+    min-height: 100vh;
+}
+
+/* Auth card */
+body.neon-app .login-form {
+    background: linear-gradient(180deg, var(--neon-surface), var(--neon-surface-2)) !important;
+    border: 1px solid var(--neon-border) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 40px 90px -40px rgba(0,0,0,.9) !important;
+    padding: 40px 34px !important;
+}
+body.neon-app .login-form__title { color: #fff !important; font-weight: 800; }
+body.neon-app .login-form p,
+body.neon-app .login-form .form-label,
+body.neon-app .login-form label { color: var(--neon-text) !important; }
+body.neon-app .login-form .form-label { font-weight: 600; margin-bottom: 6px; }
+
+/* Text inputs */
+body.neon-app .login-form .form--control,
+body.neon-app .login-form .form-control,
+body.neon-app .verification-area .form-control {
+    background: rgba(255,255,255,.05) !important;
+    border: 1px solid var(--neon-border-2) !important;
+    color: var(--neon-text) !important;
+    border-radius: 12px !important;
+    height: auto; padding: 12px 16px;
+}
+body.neon-app .login-form .form-control::placeholder { color: #6b7488 !important; }
+body.neon-app .login-form .form-control:focus {
+    border-color: var(--neon-accent) !important;
+    box-shadow: 0 0 0 3px rgba(34,211,238,.16) !important;
+    background: rgba(255,255,255,.06) !important;
+}
+
+/* Links & checkbox */
+body.neon-app .t-link--base,
+body.neon-app .text--base,
+body.neon-app .login-form a.t-link { color: var(--neon-accent) !important; }
+body.neon-app .form-check-input.custom--check { background-color: rgba(255,255,255,.06); border-color: var(--neon-border-2); }
+body.neon-app .form-check-input.custom--check:checked { background: var(--neon-grad) !important; border-color: transparent !important; }
+
+/* Primary auth button already themed via .btn--base */
+body.neon-app .form-disabled { opacity: .6; }
+
+/* Inline validation feedback (if used) */
+body.neon-app .invalid-feedback, body.neon-app .text-danger { color: var(--neon-pink) !important; }
+body.neon-app .is-invalid { border-color: var(--neon-pink) !important; }
+
+/* ---- Verification / OTP code input ---- */
+body.neon-app .verification-code-wrapper {
+    background: linear-gradient(180deg, var(--neon-surface), var(--neon-surface-2)) !important;
+    border: 1px solid var(--neon-border) !important;
+    border-radius: 18px !important;
+}
+body.neon-app .verification-code input { color: var(--neon-text) !important; caret-color: var(--neon-accent); }
+body.neon-app .verification-code::after { background: var(--neon-surface-2) !important; }
+body.neon-app .verification-code span {
+    background: rgba(255,255,255,.05) !important;
+    border: 1px solid var(--neon-border-2) !important;
+    color: var(--neon-accent) !important;
+    border-radius: 10px;
+}
+body.neon-app .verification-text { color: var(--neon-muted) !important; }
+
+/* ---- Toast notifications (error / success) — dark, scoped to neon area ---- */
+body.neon-app .iziToast,
+.neon-app .iziToast {
+    background: linear-gradient(180deg, #141b2d, #1a2236) !important;
+    border: 1px solid rgba(255,255,255,.1) !important;
+    box-shadow: 0 22px 48px -22px rgba(0,0,0,.85) !important;
+    border-radius: 14px !important;
+}
+body.neon-app .iziToast .iziToast-title { color: #fff !important; }
+body.neon-app .iziToast .iziToast-message { color: #b7c0d4 !important; }
+body.neon-app .iziToast > .iziToast-body .iziToast-texts { margin-left: 6px; }
