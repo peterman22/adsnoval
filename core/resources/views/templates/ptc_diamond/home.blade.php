@@ -36,7 +36,7 @@
 			if (storedTheme) {
 				return storedTheme
 			}
-			return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'light'
+			return 'dark'
 		}
 
 		const setTheme = function (theme) {
@@ -103,6 +103,25 @@
   
 	<!-- Theme CSS -->
 	<link rel="stylesheet" type="text/css" href="core/resources/views/templates/ptc_diamond/home/assets/css/style.css">
+
+	<!-- AdsNoval dark-neon accents -->
+	<style>
+		:root { --nv-accent: #22d3ee; --nv-primary: #7c3aed; --nv-grad: linear-gradient(135deg, #7c3aed 0%, #4f46e5 45%, #06b6d4 100%); }
+		[data-bs-theme=dark] { --bs-body-bg: #0a0e1a; --bs-primary: #7c3aed; --bs-primary-rgb: 124,58,237; --bs-link-color: #22d3ee; --bs-link-hover-color: #67e8f9; }
+		[data-bs-theme=dark] body {
+			background:
+				radial-gradient(1000px 500px at 85% -5%, rgba(124,58,237,.16), transparent 60%),
+				radial-gradient(800px 450px at -8% 8%, rgba(6,182,212,.12), transparent 55%),
+				#0a0e1a;
+		}
+		.btn-primary, .btn.btn-primary { background: var(--nv-grad) !important; border: none !important; box-shadow: 0 14px 30px -14px rgba(124,58,237,.85); }
+		.btn-primary:hover { filter: brightness(1.08); }
+		.btn-dark { background: rgba(255,255,255,.08) !important; border: 1px solid rgba(255,255,255,.14) !important; color: #fff !important; }
+		.text-primary { color: var(--nv-accent) !important; }
+		.bg-primary { background: var(--nv-grad) !important; }
+		.login-btn { background: var(--nv-grad) !important; color: #fff !important; border: none !important; box-shadow: 0 12px 26px -14px rgba(124,58,237,.9); }
+		.header-sticky.bg-transparent { background: rgba(10,14,26,.6) !important; backdrop-filter: blur(10px); }
+	</style>
 
 </head>
 
@@ -902,6 +921,96 @@ CTA START -->
 CTA END -->
 
 </main>
+<!-- ============ New Features (AdsNoval) ============ -->
+<section class="nf-section">
+    <div class="container">
+        <div class="nf-head">
+            <span class="nf-chip">✨ @lang('New')</span>
+            <h2 class="nf-title">@lang('More ways to earn, every single day')</h2>
+            <p class="nf-sub">@lang('We just launched three new features that reward you for showing up and having fun.')</p>
+        </div>
+
+        <div class="nf-grid">
+            <!-- Spin the Wheel -->
+            <div class="nf-card">
+                <div class="nf-card__visual">
+                    <div class="nf-wheel"></div>
+                    <div class="nf-wheel__hub">SPIN</div>
+                </div>
+                <div class="nf-badge">🎡 @lang('Daily Spin')</div>
+                <h3 class="nf-card__title">@lang('Spin the Wheel')</h3>
+                <p class="nf-card__text">@lang('Claim a free spin every day for a shot at instant cash prizes — and a free ad every few spins.')</p>
+            </div>
+
+            <!-- Daily Streak -->
+            <div class="nf-card">
+                <div class="nf-card__visual nf-card__visual--streak">
+                    <div class="nf-streak">
+                        <span class="on">1</span><span class="on">2</span><span class="on">3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                    </div>
+                    <div class="nf-fire">🔥</div>
+                </div>
+                <div class="nf-badge">🔥 @lang('Login Streak')</div>
+                <h3 class="nf-card__title">@lang('Daily Login Streak')</h3>
+                <p class="nf-card__text">@lang('Check in every day to keep your streak alive. The longer your streak, the bigger your daily bonus grows.')</p>
+            </div>
+
+            <!-- Live Payouts -->
+            <div class="nf-card">
+                <div class="nf-card__visual nf-card__visual--live">
+                    <div class="nf-pay"><span class="nf-pay__av">B</span><span class="nf-pay__t">b***84<small>Bitcoin</small></span><span class="nf-pay__amt">$1,204</span></div>
+                    <div class="nf-pay"><span class="nf-pay__av">S</span><span class="nf-pay__t">s***21<small>USDT</small></span><span class="nf-pay__amt">$318</span></div>
+                    <div class="nf-pay"><span class="nf-pay__av">J</span><span class="nf-pay__t">j***09<small>Solana</small></span><span class="nf-pay__amt">$76</span></div>
+                </div>
+                <div class="nf-badge">💸 @lang('Live')</div>
+                <h3 class="nf-card__title">@lang('Live Payouts Feed')</h3>
+                <p class="nf-card__text">@lang('Watch real members get paid in real time. Full transparency — see the money moving as it happens.')</p>
+            </div>
+        </div>
+
+        <div class="nf-cta">
+            <a href="{{ route('user.register') }}" class="nf-cta__btn">@lang('Start Earning Free') →</a>
+        </div>
+    </div>
+</section>
+
+<style>
+.nf-section { padding: 96px 0; background: radial-gradient(700px 360px at 15% 0%, rgba(6,182,212,.14), transparent 60%), #0a0e1a; color: #e8edf9; }
+.nf-head { text-align: center; max-width: 640px; margin: 0 auto 50px; }
+.nf-chip { display: inline-block; padding: 7px 16px; border-radius: 999px; background: linear-gradient(135deg, rgba(124,58,237,.2), rgba(6,182,212,.2)); border: 1px solid rgba(255,255,255,.12); font-weight: 700; font-size: 13px; color: #22d3ee; }
+.nf-title { font-size: 40px; font-weight: 900; margin: 18px 0 10px; letter-spacing: -.02em; background: linear-gradient(120deg,#fff,#b8c2ff 50%,#22d3ee); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.nf-sub { color: #8b96ab; font-size: 17px; }
+.nf-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+@media (max-width: 900px){ .nf-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; } .nf-title { font-size: 30px; } .nf-section{padding:64px 0;} }
+.nf-card {
+    background: linear-gradient(180deg,#141b2d,#1a2236); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 22px; padding: 26px; text-align: center; position: relative; overflow: hidden;
+    box-shadow: 0 30px 60px -34px rgba(0,0,0,.9); transition: transform .25s ease, border-color .25s ease;
+}
+.nf-card:hover { transform: translateY(-6px); border-color: rgba(124,58,237,.45); }
+.nf-card__visual { height: 150px; display: grid; place-items: center; position: relative; margin-bottom: 18px; }
+.nf-wheel { width: 132px; height: 132px; border-radius: 50%; border: 6px solid rgba(255,255,255,.08); box-shadow: 0 0 0 5px rgba(124,58,237,.25); background: conic-gradient(#4f2ea8 0 45deg,#1f2b52 45deg 90deg,#3a1e6e 90deg 135deg,#173a52 135deg 180deg,#5a2ea8 180deg 225deg,#204a63 225deg 270deg,#2a1f5e 270deg 315deg,#173a52 315deg 360deg); animation: nf-spin 9s linear infinite; }
+@keyframes nf-spin { to { transform: rotate(360deg); } }
+.nf-wheel__hub { position: absolute; width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 800; color: #fff; background: var(--nv-grad); border: 3px solid rgba(255,255,255,.25); box-shadow: 0 0 20px rgba(124,58,237,.7); }
+.nf-streak { display: flex; gap: 7px; }
+.nf-streak span { width: 30px; height: 40px; border-radius: 9px; display: grid; place-items: center; font-weight: 800; font-size: 13px; color: #8b96ab; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); }
+.nf-streak span.on { background: var(--nv-grad); color: #fff; border: none; box-shadow: 0 8px 18px -10px rgba(124,58,237,.9); }
+.nf-fire { position: absolute; top: 6px; right: 30px; font-size: 26px; filter: drop-shadow(0 0 10px rgba(251,146,60,.6)); }
+.nf-card__visual--live { flex-direction: column; gap: 8px; display: flex; justify-content: center; width: 100%; }
+.nf-pay { display: flex; align-items: center; gap: 10px; width: 100%; max-width: 240px; margin: 0 auto; padding: 8px 12px; border-radius: 11px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); }
+.nf-pay__av { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #22d3ee; background: linear-gradient(135deg,rgba(124,58,237,.3),rgba(6,182,212,.3)); }
+.nf-pay__t { flex: 1; text-align: left; font-weight: 700; font-size: 13px; line-height: 1.1; }
+.nf-pay__t small { display: block; color: #8b96ab; font-weight: 500; font-size: 11px; }
+.nf-pay__amt { font-weight: 800; color: #34d399; font-size: 13px; }
+.nf-badge { display: inline-block; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); font-size: 12px; font-weight: 700; color: #22d3ee; margin-bottom: 12px; }
+.nf-card__title { font-size: 21px; font-weight: 800; margin: 0 0 8px; color: #fff; }
+.nf-card__text { color: #8b96ab; font-size: 14.5px; margin: 0; }
+.nf-cta { text-align: center; margin-top: 44px; }
+.nf-cta__btn { display: inline-block; padding: 16px 34px; border-radius: 14px; background: var(--nv-grad); color: #fff !important; font-weight: 800; text-decoration: none; box-shadow: 0 16px 34px -16px rgba(124,58,237,.9); transition: .2s; }
+.nf-cta__btn:hover { filter: brightness(1.08); transform: translateY(-2px); }
+</style>
+<!-- ============ End New Features ============ -->
+
 <!-- ============ Earnings Calculator + Live Payouts (AdsNoval) ============ -->
 <section class="av-earn">
     <div class="container">
