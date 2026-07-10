@@ -607,3 +607,18 @@ body.neon-app .iziToast,
 body.neon-app .iziToast .iziToast-title { color: #fff !important; }
 body.neon-app .iziToast .iziToast-message { color: #b7c0d4 !important; }
 body.neon-app .iziToast > .iziToast-body .iziToast-texts { margin-left: 6px; }
+
+/* =====================================================================
+   FULL-WIDTH FORM FIELDS — every input/select/textarea spans the row
+   (checkbox / radio / link-only columns keep their layout)
+   ===================================================================== */
+body.neon-app form [class*="col-"]:has(input:not([type=checkbox]):not([type=radio])),
+body.neon-app form [class*="col-"]:has(select),
+body.neon-app form [class*="col-"]:has(textarea) {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+body.neon-app form .form-control,
+body.neon-app form .form--control,
+body.neon-app form .form-select { width: 100% !important; }
