@@ -57,7 +57,7 @@
                                 <td>{{ $w->currency }}</td>
                                 <td>
                                     @if ($w->status == 1) <span class="badge b-ok">Paid</span>
-                                    @elseif ($w->status == 3) <span class="badge b-rej">Rejected</span>
+                                    @elseif ($w->status == 3) <span class="badge b-rej">Rejected</span>@if($w->admin_note)<div class="muted" style="font-size:11px;margin-top:3px">{{ $w->admin_note }}</div>@endif
                                     @else <span class="badge b-pending">Pending</span> @endif
                                 </td>
                                 <td class="muted">{{ $w->created_at->diffForHumans() }}</td>

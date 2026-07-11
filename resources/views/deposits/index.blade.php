@@ -30,7 +30,8 @@
                     <select class="input" name="crypto_method_id" id="method" required>
                         @foreach ($methods as $m)
                             <option value="{{ $m->id }}"
-                                data-addr="{{ $m->address }}" data-min="{{ $m->min_amount }}" data-max="{{ $m->max_amount }}" data-cur="{{ $m->currency }}">
+                                data-addr="{{ $m->address }}" data-min="{{ $m->min_amount }}" data-max="{{ $m->max_amount }}" data-cur="{{ $m->currency }}"
+                                data-qr="{{ $m->qr_path ? asset('storage/'.$m->qr_path) : '' }}">
                                 {{ $m->name }}
                             </option>
                         @endforeach
@@ -41,6 +42,10 @@
                     <label class="label">Send to this address</label>
                     <div class="wallet-box" id="addr">{{ $methods->first()->address }}</div>
                     <div class="muted" style="font-size:12px;margin-top:6px">Min <span id="min">{{ $methods->first()->min_amount }}</span> · Max <span id="max">{{ $methods->first()->max_amount }}</span> ({{ config('app.name') }} credit)</div>
+                    <div id="qrbox" style="margin-top:12px;text-align:center;{{ $methods->first()->qr_path ? '' : 'display:none' }}">
+                        <img id="qrimg" src="{{ $methods->first()->qr_path ? asset('storage/'.$methods->first()->qr_path) : '' }}" alt="QR" style="width:170px;border-radius:14px;border:1px solid var(--border-2);background:#fff;padding:8px">
+                        <div class="muted" style="font-size:12px;margin-top:6px">Scan to pay</div>
+                    </div>
                 </div>
 
                 <div class="field">
@@ -98,6 +103,8 @@
             document.getElementById('addr').textContent = o.dataset.addr;
             document.getElementById('min').textContent = o.dataset.min;
             document.getElementById('max').textContent = o.dataset.max;
+            var qb = document.getElementById('qrbox'), qi = document.getElementById('qrimg');
+            if (o.dataset.qr) { qi.src = o.dataset.qr; qb.style.display = ''; } else { qb.style.display = 'none'; }
         });
     </script>
     @endpush
