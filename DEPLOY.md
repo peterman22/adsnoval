@@ -48,6 +48,21 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
+### Windows + XAMPP
+
+If you're on XAMPP, `mysql` isn't on your PATH — use one of these:
+
+- **phpMyAdmin (easiest):** XAMPP Control Panel → Start **Apache** + **MySQL** →
+  open `http://localhost/phpmyadmin` → **New** → create a database named
+  `adsnoval` (collation `utf8mb4_general_ci`).
+- **CLI by full path:** `C:\xampp\mysql\bin\mysql -u root -p` then press **Enter**
+  at the password prompt (XAMPP's root password is empty by default), and run the
+  `CREATE DATABASE adsnoval ...` statement above.
+
+XAMPP's root user has **no password**, so in `.env` set `DB_USERNAME=root` and
+leave `DB_PASSWORD=` blank. Run the app with `php artisan serve` (not
+`http://localhost/adsnoval`) so Laravel's `public/` folder is the web root.
+
 ---
 
 ## 4. Configure the environment
