@@ -22,11 +22,20 @@
         .badge { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
         .b-pending { background: rgba(251,191,36,.15); color: #fbbf24; } .b-ok { background: rgba(52,211,153,.15); color: var(--green); } .b-rej { background: rgba(244,114,182,.15); color: var(--pink); }
         .grid-a { display: grid; gap: 22px; }
-        @media (max-width: 900px){ .app { grid-template-columns: 1fr; } .side { display: none; } }
+        .side-toggle { display: none; }
+        @media (max-width: 900px){
+            .app { grid-template-columns: 1fr; }
+            .side { position: fixed; left: 0; top: 0; width: 270px; z-index: 60; transform: translateX(-100%); transition: transform .25s; }
+            #adminnav:checked ~ .app .side { transform: none; }
+            .side-toggle { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 11px; background: var(--grad-warm); color: #1a1205; cursor: pointer; }
+            #adminnav:checked ~ .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); backdrop-filter: blur(3px); z-index: 55; }
+        }
     </style>
     @stack('head')
 </head>
 <body>
+    <input type="checkbox" id="adminnav" hidden>
+    <label for="adminnav" class="backdrop"></label>
     <div class="app">
         <aside class="side">
             <a href="{{ route('admin.dashboard') }}" class="brand"><img src="{{ asset('assets/img/logo.png') }}" class="brand-logo" alt="{{ config('app.name') }}"> Admin</a>
@@ -50,7 +59,10 @@
             </ul>
         </aside>
         <main>
-            <header class="topbar"><h3 style="margin:0;font-size:18px">{{ $title }}</h3></header>
+            <header class="topbar">
+                <label for="adminnav" class="side-toggle"><x-icon name="menu" size="20" /></label>
+                <h3 style="margin:0;font-size:18px">{{ $title }}</h3>
+            </header>
             <div class="content">
                 @if (session('success')) <div class="alert alert-success">{{ session('success') }}</div> @endif
                 @if (session('error')) <div class="alert alert-error">{{ session('error') }}</div> @endif
