@@ -37,6 +37,20 @@ class Mailer
         $tpl = EmailTemplate::where('key', $key)->where('is_active', true)->first();
         if (! $tpl) return false;
 
+        [$subject, $body] = self::renderTemplate($tpl, $vars);
+
+        try {
+            self::sendHtml($to, $subject, $body);
+            return true;
+        } catch (\Throwable $e) {
+            Log::warning('Email send failed ['.$key.']: '.$e->getMessage());
+            return false;
+        }
+    }
+
+    /** Render a template's subject + wrapped HTML body (no sending). */
+    public static function renderTemplate(EmailTemplate $tpl, array $vars = []): array
+    {
         $vars = array_merge([
             'site_name' => Setting::val('site_name', config('app.name')),
             'year'      => date('Y'),
@@ -45,16 +59,37 @@ class Mailer
         $subject = self::render($tpl->subject, $vars);
         $body    = self::wrap(self::render($tpl->body, $vars), $subject);
 
-        try {
-            self::configureSmtp();
-            Mail::html($body, function ($m) use ($to, $subject) {
-                $m->to($to)->subject($subject);
-            });
-            return true;
-        } catch (\Throwable $e) {
-            Log::warning('Email send failed ['.$key.']: '.$e->getMessage());
-            return false;
-        }
+        return [$subject, $body];
+    }
+
+    /**
+     * Send raw HTML through the configured SMTP. Unlike sendTemplate() this
+     * lets exceptions bubble up so callers (e.g. the admin test buttons) can
+     * surface the real SMTP error instead of silently logging it.
+     */
+    public static function sendHtml(string $to, string $subject, string $body): void
+    {
+        self::configureSmtp();
+        Mail::html($body, function ($m) use ($to, $subject) {
+            $m->to($to)->subject($subject);
+        });
+    }
+
+    /** Realistic sample values so templates can be previewed/tested. */
+    public static function sampleVars(): array
+    {
+        $sym = Setting::val('currency_symbol', '$');
+        return [
+            'name'      => 'Test User',
+            'username'  => 'testuser',
+            'otp'       => '123456',
+            'amount'    => $sym.'25.00',
+            'type'      => 'Deposit',
+            'balance'   => $sym.'102.50',
+            'trx'       => 'TRX-TEST-0001',
+            'title'     => 'Test Transaction',
+            'login_url' => url('/login'),
+        ];
     }
 
     protected static function render(string $text, array $vars): string
@@ -63,6 +98,12 @@ class Mailer
             $text = str_replace('{{'.$k.'}}', (string) $v, $text);
         }
         return $text;
+    }
+
+    /** Public branded-shell wrapper (used by the SMTP test email). */
+    public static function wrapHtml(string $inner, string $title = ''): string
+    {
+        return self::wrap($inner, $title);
     }
 
     /** Wrap template body in a branded responsive HTML shell. */

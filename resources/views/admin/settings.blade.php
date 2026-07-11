@@ -30,4 +30,13 @@
 </div>
 <button class="btn btn-primary btn-lg" style="margin-top:18px">Save all settings</button>
 </form>
+
+<div class="card" style="margin-top:22px">
+  <h3 style="font-size:17px;display:flex;align-items:center;gap:8px"><x-icon name="send" size="18" /> Test SMTP connection</h3>
+  <p class="muted" style="margin-top:4px">Save your SMTP settings above first, then send a test email to confirm they work. Any error is shown here.</p>
+  <form method="POST" action="{{ route('admin.settings.testmail') }}" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-top:8px">@csrf
+    <div class="field" style="flex:1;min-width:240px;margin:0"><label class="label">Send test to</label><input class="input" type="email" name="test_email" value="{{ auth('admin')->user()->email ?? '' }}" placeholder="you@example.com" required></div>
+    <button class="btn btn-primary">Send test email</button>
+  </form>
+</div>
 </x-admin-layout>

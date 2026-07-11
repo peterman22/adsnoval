@@ -105,7 +105,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('settings', [Admin\SettingController::class, 'index'])->name('settings');
         Route::post('settings', [Admin\SettingController::class, 'save'])->name('settings.save');
+        Route::post('settings/test-mail', [Admin\SettingController::class, 'testMail'])->name('settings.testmail');
         Route::get('templates', [Admin\SettingController::class, 'templates'])->name('templates');
         Route::post('templates/{template}', [Admin\SettingController::class, 'saveTemplate'])->name('templates.save');
+        Route::get('templates/{template}/preview', [Admin\SettingController::class, 'previewTemplate'])->name('templates.preview');
+        Route::post('templates/{template}/test', [Admin\SettingController::class, 'testTemplate'])->name('templates.test');
     });
 });
