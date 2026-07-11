@@ -120,7 +120,7 @@ select.input option { background: var(--surface); }
 .nav-inner { display: flex; align-items: center; gap: 22px; padding: 15px 0; }
 .brand { display: flex; align-items: center; gap: 11px; font-family: var(--head); font-weight: 800; font-size: 21px; color: #fff; }
 .brand-mark { width: 36px; height: 36px; border-radius: 10px; background: var(--grad-warm); display: grid; place-items: center; font-size: 18px; box-shadow: var(--glow); }
-.brand-logo { width: 38px; height: 38px; object-fit: contain; display: block; }
+.brand-logo { width: 28px; height: 28px; object-fit: contain; display: block; }
 .lucide { display: inline-block; vertical-align: -.15em; flex-shrink: 0; }
 .menu .ico .lucide, .menu a > .lucide, .menu button > .lucide { vertical-align: middle; }
 .feature .ico .lucide, .tile .ico .lucide { color: var(--brand-2); }
