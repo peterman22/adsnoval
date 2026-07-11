@@ -3,7 +3,7 @@
 <div class="card center">
   <div style="color:var(--brand-2)"><x-icon name="mail" size="40" /></div>
   <h1 style="font-size:26px">Verify your email</h1>
-  <p>Enter the 6-digit code we sent to your inbox.</p>
+  <p>Enter the 6-digit code we sent to @isset($email)<b>{{ $email }}</b>@else your inbox@endisset. Your account is created once you verify.</p>
   @if(session('error'))<div class="alert alert-error">{{ session('error') }}</div>@endif
   @if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
   <form method="POST" action="{{ route('verify.submit') }}">@csrf

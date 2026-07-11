@@ -8,6 +8,7 @@ use App\Services\Mailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -27,7 +28,96 @@ class AuthController extends Controller
             'ref'      => 'nullable|string',
         ]);
 
-        $referrer = !empty($data['ref']) ? User::where('ref_code', $data['ref'])->first() : null;
+        // When email verification is required, DON'T create the account yet.
+        // Hold the details in the session and only create the user once the
+        // emailed code is confirmed in verifyOtp().
+        if (Setting::val('require_email_verification', '0') === '1') {
+            $otp = (string) random_int(100000, 999999);
+            $request->session()->put('pending_registration', [
+                'name'     => $data['name'],
+                'username' => $data['username'],
+                'email'    => $data['email'],
+                'password' => Hash::make($data['password']), // stored hashed, never in plain text
+                'ref'      => $data['ref'] ?? null,
+                'otp'      => $otp,
+                'expires'  => now()->addMinutes(10)->timestamp,
+            ]);
+            Mailer::sendTemplate($data['email'], 'otp', ['name' => $data['name'], 'otp' => $otp]);
+            return redirect()->route('verify.show')
+                ->with('success', 'We sent a 6-digit verification code to '.$data['email'].'.');
+        }
+
+        // No verification required — create and sign in immediately.
+        $user = $this->createUser($data, verified: false);
+        Mailer::sendTemplate($user->email, 'welcome', [
+            'name'      => $user->name,
+            'username'  => $user->username,
+            'login_url' => route('dashboard'),
+        ]);
+        Auth::login($user);
+        $request->session()->regenerate();
+        return redirect()->route('dashboard')->with('success', 'Welcome to '.config('app.name').'! Your account is ready.');
+    }
+
+    /* -------- OTP email verification -------- */
+    public function showVerify(Request $request)
+    {
+        $pending = $request->session()->get('pending_registration');
+        if (! $pending) {
+            return redirect()->route('register');
+        }
+        return view('auth.verify', ['email' => $pending['email']]);
+    }
+
+    public function verifyOtp(Request $request)
+    {
+        $pending = $request->session()->get('pending_registration');
+        if (! $pending) return redirect()->route('register');
+
+        $request->validate(['otp' => 'required|string']);
+
+        if (now()->timestamp > $pending['expires']) {
+            return back()->with('error', 'Your code has expired — tap “Resend code” to get a new one.');
+        }
+        if (! hash_equals((string) $pending['otp'], trim($request->otp))) {
+            return back()->with('error', 'That code is incorrect. Please check your email and try again.');
+        }
+
+        // Code confirmed — create the fully verified account now.
+        $user = $this->createUser($pending, verified: true);
+        Mailer::sendTemplate($user->email, 'welcome', [
+            'name'      => $user->name,
+            'username'  => $user->username,
+            'login_url' => route('dashboard'),
+        ]);
+
+        $request->session()->forget('pending_registration');
+        Auth::login($user);
+        $request->session()->regenerate();
+        return redirect()->route('dashboard')->with('success', 'Email verified — welcome to '.config('app.name').'!');
+    }
+
+    public function resendOtp(Request $request)
+    {
+        $pending = $request->session()->get('pending_registration');
+        if (! $pending) return redirect()->route('register');
+
+        $pending['otp']     = (string) random_int(100000, 999999);
+        $pending['expires'] = now()->addMinutes(10)->timestamp;
+        $request->session()->put('pending_registration', $pending);
+
+        Mailer::sendTemplate($pending['email'], 'otp', ['name' => $pending['name'], 'otp' => $pending['otp']]);
+        return back()->with('success', 'A new code has been sent to '.$pending['email'].'.');
+    }
+
+    /**
+     * Create a user from validated/pending data. Password may arrive already
+     * hashed (from the pending session) or plain (direct signup) — the model's
+     * hashed cast leaves an existing hash untouched and hashes a plain value.
+     */
+    private function createUser(array $data, bool $verified): User
+    {
+        $referrer = ! empty($data['ref']) ? User::where('ref_code', $data['ref'])->first() : null;
 
         $user = User::create([
             'name'        => $data['name'],
@@ -38,66 +128,11 @@ class AuthController extends Controller
             'referred_by' => $referrer?->id,
         ]);
 
-        // Welcome email
-        Mailer::sendTemplate($user->email, 'welcome', [
-            'name'      => $user->name,
-            'username'  => $user->username,
-            'login_url' => route('dashboard'),
-        ]);
-
-        // Optional OTP email verification
-        if (Setting::val('require_email_verification', '0') === '1') {
-            $this->sendOtp($user);
-            $request->session()->put('pending_verify_user', $user->id);
-            return redirect()->route('verify.show')->with('success', 'We sent a verification code to your email.');
+        if ($verified) {
+            $user->forceFill(['email_verified_at' => now()])->save();
         }
 
-        Auth::login($user);
-        $request->session()->regenerate();
-        return redirect()->route('dashboard')->with('success', 'Welcome to '.config('app.name').'! Your account is ready.');
-    }
-
-    /* -------- OTP email verification -------- */
-    public function showVerify(Request $request)
-    {
-        if (! $request->session()->has('pending_verify_user')) {
-            return redirect()->route('login');
-        }
-        return view('auth.verify');
-    }
-
-    public function verifyOtp(Request $request)
-    {
-        $id = $request->session()->get('pending_verify_user');
-        $user = $id ? User::find($id) : null;
-        if (! $user) return redirect()->route('login');
-
-        $request->validate(['otp' => 'required|string']);
-
-        if ($user->otp_code !== $request->otp || ($user->otp_expires_at && $user->otp_expires_at->isPast())) {
-            return back()->with('error', 'Invalid or expired code.');
-        }
-
-        $user->update(['email_verified_at' => now(), 'otp_code' => null, 'otp_expires_at' => null]);
-        $request->session()->forget('pending_verify_user');
-        Auth::login($user);
-        $request->session()->regenerate();
-        return redirect()->route('dashboard')->with('success', 'Email verified — welcome!');
-    }
-
-    public function resendOtp(Request $request)
-    {
-        $id = $request->session()->get('pending_verify_user');
-        $user = $id ? User::find($id) : null;
-        if ($user) $this->sendOtp($user);
-        return back()->with('success', 'A new code has been sent.');
-    }
-
-    private function sendOtp(User $user): void
-    {
-        $otp = (string) random_int(100000, 999999);
-        $user->update(['otp_code' => $otp, 'otp_expires_at' => now()->addMinutes(10)]);
-        Mailer::sendTemplate($user->email, 'otp', ['name' => $user->name, 'otp' => $otp]);
+        return $user;
     }
 
     public function showLogin()
