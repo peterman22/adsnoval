@@ -1,8 +1,19 @@
 <?php
 namespace App\Http\Controllers;
-use App\Models\{Withdrawal,Plan,Setting};
+use App\Models\{Withdrawal,Plan,Setting,User,Transaction};
 use Carbon\Carbon;
 class SiteController extends Controller {
+    public function home(){
+        return view('welcome', [
+            'plans' => Plan::active()->orderBy('price')->get(),
+            'stats' => [
+                'members' => max(250000, User::count()),
+                'paid'    => 5800000 + intval((time()-strtotime('2025-01-01'))/86400)*8400,
+                'watched' => max(1200000, Transaction::where('remark','ad_earn')->count()),
+            ],
+        ]);
+    }
+
     // Public "proof of payment" feed (real paid + generated social proof)
     public function withdrawFeed(){
         $names=['james','mary','john','wei','ahmed','carlos','sofia','ivan','raj','priya','liam','noah','emma','olga','chen'];

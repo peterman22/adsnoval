@@ -13,7 +13,7 @@ use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', [SiteController::class, 'home'])->name('home');
 Route::get('withdraw-feed', [SiteController::class, 'withdrawFeed'])->name('withdraw.feed');
 
 // Guest auth
