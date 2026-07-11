@@ -1,0 +1,11 @@
+# Forward all requests into Laravel's public/ folder so the app works when
+# served from a subfolder (e.g. XAMPP htdocs/adsnoval) without exposing files.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(\.env|composer\.(json|lock)|artisan|package\.json) - [F,L]
+    RewriteCond %{REQUEST_URI} !^/?public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Block directory listing as a fallback
+Options -Indexes

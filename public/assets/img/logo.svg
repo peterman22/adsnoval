@@ -1,0 +1,14 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <g stroke="#ff7a1a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <!-- ring, open toward bottom-left like a speech tail -->
+    <path d="M40 108 A52 52 0 1 1 96 100"/>
+    <!-- speech-bubble tail -->
+    <path d="M40 108 L22 116 L34 98"/>
+    <!-- comet slash crossing top-right -->
+    <path d="M78 42 L104 24"/>
+  </g>
+  <!-- A -->
+  <path d="M64 34 L92 92 L36 92 Z" fill="#ff7a1a"/>
+  <!-- star cut-out (white) -->
+  <path fill="#ffffff" d="M64 54 l4.6 9.3 10.3 1.5 -7.4 7.3 1.7 10.2 -9.2 -4.8 -9.2 4.8 1.7 -10.2 -7.4 -7.3 10.3 -1.5 Z"/>
+</svg>

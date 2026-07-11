@@ -38,7 +38,7 @@
                     </div>
                     @if ($ref)
                         <input type="hidden" name="ref" value="{{ $ref }}">
-                        <p style="font-size:13px;color:var(--green)">✓ Referred by code <b>{{ $ref }}</b></p>
+                        <p style="font-size:13px;color:var(--green)"><x-icon name="check" size="14" /> Referred by code <b>{{ $ref }}</b></p>
                     @endif
                     <button class="btn btn-primary btn-block btn-lg" type="submit">Create account</button>
                 </form>

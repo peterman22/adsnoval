@@ -20,7 +20,7 @@
     <h3 style="font-size:17px">All plans ({{ $plans->count() }})</h3>
     @forelse($plans as $p)
       <details style="border-bottom:1px solid var(--border);padding:10px 0">
-        <summary style="cursor:pointer;display:flex;justify-content:space-between"><b>{{ $p->name }}</b> <span class="muted">${{ number_format($p->price,2) }} · {{ $p->daily_limit }}/day @if($p->is_popular)⭐@endif @if(!$p->is_active)(off)@endif</span></summary>
+        <summary style="cursor:pointer;display:flex;justify-content:space-between"><b>{{ $p->name }}</b> <span class="muted">${{ number_format($p->price,2) }} · {{ $p->daily_limit }}/day @if($p->is_popular)<x-icon name="star" size="14" />@endif @if(!$p->is_active)(off)@endif</span></summary>
         <form method="POST" action="{{ route('admin.plans.update',$p) }}" style="margin-top:10px">@csrf
           <div class="grid grid-2" style="gap:10px">
             <div class="field"><label class="label">Name</label><input class="input" name="name" value="{{ $p->name }}"></div>

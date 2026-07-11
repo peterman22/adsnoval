@@ -66,14 +66,14 @@
     <section class="hero">
         <div class="container hero-grid">
             <div>
-                <span class="chip">💸 Get paid to watch ads</span>
+                <span class="chip"><x-icon name="dollar-sign" size="16" /> Get paid to watch ads</span>
                 <h1 style="margin-top:16px">Turn every click into <span class="grad-text">real cash</span></h1>
                 <p class="lead">Trusted by thousands worldwide. Start earning in just a few clicks with zero upfront cost — watch ads, spin, refer, and cash out in crypto.</p>
                 <div class="hero-cta">
                     <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Start earning free →</a>
                     <a href="#how" class="btn btn-ghost btn-lg">How it works</a>
                 </div>
-                <p class="muted" style="margin-top:16px;font-size:13px">⭐ <b style="color:var(--text)">5,000+</b> users have joined our platform</p>
+                <p class="muted" style="margin-top:16px;font-size:13px"><x-icon name="star" size="15" /> <b style="color:var(--text)">5,000+</b> users have joined our platform</p>
             </div>
             <div>
                 <div class="phone">
@@ -82,9 +82,9 @@
                             <div class="row"><span class="b" style="background:rgba(255,255,255,.18);color:#fff">Upgrade</span><span class="b" style="background:#fff;color:#c2410c">Withdraw</span></div></div>
                         <div class="mini">
                             <div class="t"><small>Today</small><b style="color:var(--green)">+$4.20</b></div>
-                            <div class="t"><small>Streak</small><b>6 🔥</b></div>
+                            <div class="t"><small>Streak</small><b>6 <x-icon name="flame" size="15" /></b></div>
                             <div class="t"><small>Referrals</small><b>18</b></div>
-                            <div class="t"><small>Spins</small><b>1 🎡</b></div>
+                            <div class="t"><small>Spins</small><b>1 <x-icon name="ferris-wheel" size="15" /></b></div>
                         </div>
                     </div>
                 </div>
@@ -95,17 +95,17 @@
     <!-- Features + stats -->
     <section class="section" id="features" style="padding-top:0">
         <div class="container">
-            <div class="sec-head"><span class="chip">✨ Everything you need</span><h2>Make more than ever before</h2><p>A modern earning platform built around fun, fair rewards and fast payouts.</p></div>
+            <div class="sec-head"><span class="chip"><x-icon name="sparkles" size="16" /> Everything you need</span><h2>Make more than ever before</h2><p>A modern earning platform built around fun, fair rewards and fast payouts.</p></div>
             <div class="grid grid-3" style="margin-bottom:40px">
-                <div class="feature card"><div class="ico">🖱️</div><h3>Watch-to-Earn System</h3><p>Earn money by watching ads provided by advertisers — verified and timed.</p></div>
-                <div class="feature card"><div class="ico">🤝</div><h3>Referral Program</h3><p>Earn commissions when the people you invite start earning too.</p></div>
-                <div class="feature card"><div class="ico">📢</div><h3>Ad Posting System</h3><p>Advertisers can upload ads for users to watch — you control the reach.</p></div>
-                <div class="feature card"><div class="ico">📊</div><h3>Dashboard &amp; Earnings</h3><p>See your total watch, referral earnings and withdrawable balance at a glance.</p></div>
-                <div class="feature card"><div class="ico">₿</div><h3>Crypto Payouts</h3><p>Request payouts above the minimum — manually reviewed, paid fast.</p></div>
-                <div class="feature card"><div class="ico">🛟</div><h3>24/7 Support</h3><p>Get help anytime with dedicated support around the clock.</p></div>
+                <div class="feature card"><div class="ico"><x-icon name="mouse-pointer-click" size="26" /></div><h3>Watch-to-Earn System</h3><p>Earn money by watching ads provided by advertisers — verified and timed.</p></div>
+                <div class="feature card"><div class="ico"><x-icon name="handshake" size="26" /></div><h3>Referral Program</h3><p>Earn commissions when the people you invite start earning too.</p></div>
+                <div class="feature card"><div class="ico"><x-icon name="megaphone" size="26" /></div><h3>Ad Posting System</h3><p>Advertisers can upload ads for users to watch — you control the reach.</p></div>
+                <div class="feature card"><div class="ico"><x-icon name="layout-dashboard" size="26" /></div><h3>Dashboard &amp; Earnings</h3><p>See your total watch, referral earnings and withdrawable balance at a glance.</p></div>
+                <div class="feature card"><div class="ico"><x-icon name="bitcoin" size="26" /></div><h3>Crypto Payouts</h3><p>Request payouts above the minimum — manually reviewed, paid fast.</p></div>
+                <div class="feature card"><div class="ico"><x-icon name="life-buoy" size="26" /></div><h3>24/7 Support</h3><p>Get help anytime with dedicated support around the clock.</p></div>
             </div>
             <div class="stats">
-                <div class="stat card"><b class="grad-text">4.8★</b><span class="muted">User rating</span></div>
+                <div class="stat card"><b class="grad-text" style="display:inline-flex;align-items:center;gap:3px">4.8 <x-icon name="star" size="20" /></b><span class="muted">User rating</span></div>
                 <div class="stat card"><b class="grad-text">{{ number_format($stats['members']/1000,0) }}K+</b><span class="muted">Members</span></div>
                 <div class="stat card"><b class="grad-text">${{ number_format($stats['paid']/1000000,1) }}M</b><span class="muted">Paid out</span></div>
                 <div class="stat card"><b class="grad-text">{{ number_format($stats['watched']/1000000,1) }}M</b><span class="muted">Ads watched</span></div>
@@ -117,7 +117,7 @@
     <section class="section" id="how" style="padding-top:0">
         <div class="container grid grid-2" style="align-items:center;gap:46px">
             <div>
-                <span class="chip">⚡ Simple by design</span>
+                <span class="chip"><x-icon name="zap" size="16" /> Simple by design</span>
                 <h2 style="margin-top:14px;font-size:clamp(28px,4vw,38px)">Sign up and secure your account</h2>
                 <p>Create your account with your email. Complete the straightforward verification, then start earning the moment you join — no complicated setup.</p>
                 <a href="{{ route('register') }}" class="btn btn-primary">Create my account →</a>
@@ -134,13 +134,13 @@
     <!-- App showcase -->
     <section class="section showcase" style="padding-top:0">
         <div class="container">
-            <div class="sec-head"><span class="chip">📱 Take a look</span><h2>Get a closer look at how our app works</h2><p>A glimpse of the intuitive design and powerful features that make earning effortless.</p></div>
+            <div class="sec-head"><span class="chip"><x-icon name="smartphone" size="16" /> Take a look</span><h2>Get a closer look at how our app works</h2><p>A glimpse of the intuitive design and powerful features that make earning effortless.</p></div>
             <div class="screens">
-                <div class="screen"><div class="inner"><div class="hd"><span class="m">▲</span> Dashboard</div><div class="sbal"><small style="color:rgba(255,255,255,.85);font-size:9px">BALANCE</small><b>$8,042.50</b></div><div class="mini" style="margin:0"><div class="t"><small>Today</small><b style="font-size:14px">+$4.20</b></div><div class="t"><small>Streak</small><b style="font-size:14px">6 🔥</b></div></div></div></div>
-                <div class="screen"><div class="inner"><div class="hd"><span class="m">▲</span> Spin</div><div class="sw"></div><div class="btn btn-primary btn-sm btn-block" style="margin-top:6px">SPIN</div></div></div>
-                <div class="screen"><div class="inner"><div class="hd"><span class="m">▲</span> Live Payouts</div><div class="srow"><span class="sav">B</span><span style="flex:1">b***84 <small style="color:var(--muted)">BTC</small></span><b style="color:var(--green)">$1,204</b></div><div class="srow"><span class="sav">S</span><span style="flex:1">s***21 <small style="color:var(--muted)">USDT</small></span><b style="color:var(--green)">$318</b></div><div class="srow"><span class="sav">J</span><span style="flex:1">j***09 <small style="color:var(--muted)">SOL</small></span><b style="color:var(--green)">$76</b></div></div></div>
-                <div class="screen"><div class="inner"><div class="hd"><span class="m">▲</span> Watch Ads</div><div class="srow" style="border:none;background:rgba(255,255,255,.03);border-radius:10px;padding:10px;margin-bottom:8px"><span>🎬 Watch &amp; Earn</span><b style="margin-left:auto;color:var(--green)">+$0.08</b></div><div class="srow" style="border:none;background:rgba(255,255,255,.03);border-radius:10px;padding:10px"><span>🌐 Visit Site</span><b style="margin-left:auto;color:var(--green)">+$0.05</b></div></div></div>
-                <div class="screen"><div class="inner"><div class="hd"><span class="m">▲</span> Withdraw</div><label class="label" style="font-size:11px">Amount</label><div class="input" style="padding:9px;font-size:13px">$120.00</div><label class="label" style="font-size:11px;margin-top:8px">Method</label><div class="input" style="padding:9px;font-size:13px">USDT (TRC20)</div><div class="btn btn-primary btn-sm btn-block" style="margin-top:10px">Withdraw</div></div></div>
+                <div class="screen"><div class="inner"><div class="hd"><span class="m"><img src="{{ asset('assets/img/logo.png') }}" style="width:16px;height:16px;vertical-align:-3px" alt=""></span> Dashboard</div><div class="sbal"><small style="color:rgba(255,255,255,.85);font-size:9px">BALANCE</small><b>$8,042.50</b></div><div class="mini" style="margin:0"><div class="t"><small>Today</small><b style="font-size:14px">+$4.20</b></div><div class="t"><small>Streak</small><b style="font-size:14px">6 <x-icon name="flame" size="13" /></b></div></div></div></div>
+                <div class="screen"><div class="inner"><div class="hd"><span class="m"><img src="{{ asset('assets/img/logo.png') }}" style="width:16px;height:16px;vertical-align:-3px" alt=""></span> Spin</div><div class="sw"></div><div class="btn btn-primary btn-sm btn-block" style="margin-top:6px">SPIN</div></div></div>
+                <div class="screen"><div class="inner"><div class="hd"><span class="m"><img src="{{ asset('assets/img/logo.png') }}" style="width:16px;height:16px;vertical-align:-3px" alt=""></span> Live Payouts</div><div class="srow"><span class="sav">B</span><span style="flex:1">b***84 <small style="color:var(--muted)">BTC</small></span><b style="color:var(--green)">$1,204</b></div><div class="srow"><span class="sav">S</span><span style="flex:1">s***21 <small style="color:var(--muted)">USDT</small></span><b style="color:var(--green)">$318</b></div><div class="srow"><span class="sav">J</span><span style="flex:1">j***09 <small style="color:var(--muted)">SOL</small></span><b style="color:var(--green)">$76</b></div></div></div>
+                <div class="screen"><div class="inner"><div class="hd"><span class="m"><img src="{{ asset('assets/img/logo.png') }}" style="width:16px;height:16px;vertical-align:-3px" alt=""></span> Watch Ads</div><div class="srow" style="border:none;background:rgba(255,255,255,.03);border-radius:10px;padding:10px;margin-bottom:8px"><span><x-icon name="video" size="14" /> Watch &amp; Earn</span><b style="margin-left:auto;color:var(--green)">+$0.08</b></div><div class="srow" style="border:none;background:rgba(255,255,255,.03);border-radius:10px;padding:10px"><span><x-icon name="globe" size="14" /> Visit Site</span><b style="margin-left:auto;color:var(--green)">+$0.05</b></div></div></div>
+                <div class="screen"><div class="inner"><div class="hd"><span class="m"><img src="{{ asset('assets/img/logo.png') }}" style="width:16px;height:16px;vertical-align:-3px" alt=""></span> Withdraw</div><label class="label" style="font-size:11px">Amount</label><div class="input" style="padding:9px;font-size:13px">$120.00</div><label class="label" style="font-size:11px;margin-top:8px">Method</label><div class="input" style="padding:9px;font-size:13px">USDT (TRC20)</div><div class="btn btn-primary btn-sm btn-block" style="margin-top:10px">Withdraw</div></div></div>
             </div>
         </div>
     </section>
@@ -148,7 +148,7 @@
     <!-- More ways to earn -->
     <section class="section" style="padding-top:0">
         <div class="container">
-            <div class="sec-head"><span class="chip">✨ New</span><h2>More ways to earn, every single day</h2><p>Three features that reward you for showing up and having fun.</p></div>
+            <div class="sec-head"><span class="chip"><x-icon name="sparkles" size="16" /> New</span><h2>More ways to earn, every single day</h2><p>Three features that reward you for showing up and having fun.</p></div>
             <div class="grid grid-3">
                 <div class="feature card center"><div class="sw" style="width:120px;height:120px;margin:0 auto 16px"></div><h3>Spin the Wheel</h3><p>A free spin every day for instant cash — plus a free ad reward every few spins.</p></div>
                 <div class="feature card center"><div style="display:flex;gap:6px;justify-content:center;margin-bottom:16px">@for($i=1;$i<=5;$i++)<span style="width:26px;height:34px;border-radius:8px;display:grid;place-items:center;font-weight:800;font-size:11px;{{ $i<=3 ? 'background:var(--grad-warm);color:#1a1205' : 'background:rgba(255,255,255,.05);color:var(--muted)' }}">{{ $i }}</span>@endfor</div><h3>Daily Login Streak</h3><p>Check in daily to grow your streak and unlock bigger bonuses.</p></div>
@@ -160,7 +160,7 @@
     <!-- Earnings calculator + live payouts -->
     <section class="section" id="earn" style="padding-top:0">
         <div class="container">
-            <div class="sec-head"><span class="chip">💸 Estimator</span><h2>See how much you could earn</h2><p>Pick a plan, drag the sliders, and watch your potential income update instantly.</p></div>
+            <div class="sec-head"><span class="chip"><x-icon name="dollar-sign" size="16" /> Estimator</span><h2>See how much you could earn</h2><p>Pick a plan, drag the sliders, and watch your potential income update instantly.</p></div>
             <div class="grid grid-2" style="align-items:start">
                 <div class="card">
                     <div class="field"><label class="label">Choose a plan</label><select class="input" id="cPlan"></select></div>

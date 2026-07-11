@@ -7,7 +7,7 @@
       <div class="field"><label class="label">Type</label>
         <select class="input" name="type" required>
           <option value="1">Website (iframe URL)</option>
-          <option value="4">YouTube (embed URL)</option>
+          <option value="4">Video (direct .mp4 URL)</option>
           <option value="2">Image (image URL)</option>
           <option value="3">Script / HTML</option>
         </select></div>
@@ -29,7 +29,7 @@
         <form method="POST" action="{{ route('admin.ads.update',$a) }}" style="margin-top:10px">@csrf
           <div class="field"><label class="label">Title</label><input class="input" name="title" value="{{ $a->title }}"></div>
           <div class="field"><label class="label">Type</label><select class="input" name="type">
-            <option value="1" @selected($a->type==1)>Website</option><option value="4" @selected($a->type==4)>YouTube</option>
+            <option value="1" @selected($a->type==1)>Website</option><option value="4" @selected($a->type==4)>Video</option>
             <option value="2" @selected($a->type==2)>Image</option><option value="3" @selected($a->type==3)>Script</option></select></div>
           <div class="field"><label class="label">Body</label><textarea class="input" name="body" rows="2">{{ $a->body }}</textarea></div>
           <div class="grid grid-2" style="gap:10px">

@@ -6,10 +6,10 @@
     <h3>{{ $p->name }}</h3>
     <div style="font-family:var(--head);font-size:34px;margin:8px 0" class="{{ $p->is_popular ? 'grad-text' : '' }}">{{ $p->price > 0 ? '$'.number_format($p->price,0) : 'Free' }}</div>
     <ul style="list-style:none;padding:0;margin:14px 0;text-align:left">
-      <li style="padding:7px 0;border-bottom:1px solid var(--border)">✓ {{ $p->daily_limit }} ads / day</li>
-      <li style="padding:7px 0;border-bottom:1px solid var(--border)">✓ ${{ number_format($p->click_value,3) }} per ad</li>
-      <li style="padding:7px 0;border-bottom:1px solid var(--border)">✓ {{ $p->validity_days }} days validity</li>
-      <li style="padding:7px 0">✓ {{ $p->ref_levels }}-level referral</li>
+      <li style="padding:7px 0;border-bottom:1px solid var(--border)"><span style="color:var(--green)"><x-icon name="check" size="14" /></span> {{ $p->daily_limit }} ads / day</li>
+      <li style="padding:7px 0;border-bottom:1px solid var(--border)"><span style="color:var(--green)"><x-icon name="check" size="14" /></span> ${{ number_format($p->click_value,3) }} per ad</li>
+      <li style="padding:7px 0;border-bottom:1px solid var(--border)"><span style="color:var(--green)"><x-icon name="check" size="14" /></span> {{ $p->validity_days }} days validity</li>
+      <li style="padding:7px 0"><span style="color:var(--green)"><x-icon name="check" size="14" /></span> {{ $p->ref_levels }}-level referral</li>
     </ul>
     @if($user->plan_id == $p->id && $user->hasActivePlan())
       <button class="btn btn-ghost btn-block" disabled>Current plan</button>

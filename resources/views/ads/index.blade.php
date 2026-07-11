@@ -19,19 +19,19 @@
             <h3 style="margin:0;font-size:18px">Watch ads &amp; earn</h3>
             <p style="margin:4px 0 0">You have <b style="color:var(--brand-2)">{{ $remaining }}</b> ad{{ $remaining == 1 ? '' : 's' }} left to watch today.</p>
         </div>
-        <span class="chip">🔥 Daily limit: {{ $user->effectiveDailyLimit() }}</span>
+        <span class="chip"><x-icon name="flame" size="15" /> Daily limit: {{ $user->effectiveDailyLimit() }}</span>
     </div>
 
     @if ($remaining <= 0)
         <div class="card center" style="padding:50px">
-            <div style="font-size:44px">✅</div>
+            <div style="color:var(--green)"><x-icon name="circle-check" size="44" /></div>
             <h3>You're all caught up!</h3>
             <p>You've watched all your ads for today. Come back tomorrow for more — or upgrade your plan for a higher daily limit.</p>
-            <a href="{{ route('rewards.index') }}" class="btn btn-primary">Try the spin wheel 🎡</a>
+            <a href="{{ route('rewards.index') }}" class="btn btn-primary">Try the spin wheel <x-icon name="ferris-wheel" size="16" /></a>
         </div>
     @elseif ($ads->isEmpty())
         <div class="card center" style="padding:50px">
-            <div style="font-size:44px">📭</div>
+            <div style="color:var(--muted)"><x-icon name="inbox" size="44" /></div>
             <h3>No ads available right now</h3>
             <p>Check back soon — new ads are added throughout the day.</p>
         </div>
@@ -39,7 +39,7 @@
         <div class="adgrid">
             @foreach ($ads as $ad)
                 <a href="{{ route('ads.show', $ad) }}" class="card adcard" target="_blank" style="text-decoration:none;color:inherit">
-                    <div class="top">{{ ['1'=>'🌐','2'=>'🖼️','3'=>'📢','4'=>'▶️'][$ad->type] ?? '🖱️' }}</div>
+                    <div class="top"><x-icon name="{{ [1=>'globe',2=>'image',3=>'megaphone',4=>'video'][$ad->type] ?? 'mouse-pointer-click' }}" size="34" /></div>
                     <div class="b">
                         <h4>{{ $ad->title }}</h4>
                         <span class="reward-badge">+${{ number_format($ad->reward, 2) }}</span>

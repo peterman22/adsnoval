@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }} — {{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
     <style>
         .app { display: grid; grid-template-columns: 264px 1fr; min-height: 100vh; }
         .side { background: linear-gradient(180deg, var(--surface), var(--bg-2)); border-right: 1px solid var(--border); padding: 20px 16px; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
@@ -36,21 +37,21 @@
     <label for="nav" class="backdrop"></label>
     <div class="app">
         <aside class="side">
-            <a href="{{ route('dashboard') }}" class="brand"><span class="brand-mark">▲</span> {{ config('app.name') }}</a>
+            <a href="{{ route('dashboard') }}" class="brand"><img src="{{ asset('assets/img/logo.png') }}" class="brand-logo" alt="{{ config('app.name') }}"> {{ config('app.name') }}</a>
             @php $r = request()->routeIs(...); @endphp
             <ul class="menu">
-                <li><a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"><span class="ico">📊</span> Dashboard</a></li>
-                <li><a href="{{ route('ads.index') }}" class="{{ request()->routeIs('ads.*') ? 'active' : '' }}"><span class="ico">🖱️</span> Watch Ads</a></li>
-                <li><a href="{{ route('rewards.index') }}" class="{{ request()->routeIs('rewards.*') ? 'active' : '' }}"><span class="ico">🎡</span> Spin &amp; Rewards</a></li>
-                <li><a href="{{ route('deposits.index') }}" class="{{ request()->routeIs('deposits.*') ? 'active' : '' }}"><span class="ico">💳</span> Deposit</a></li>
-                <li><a href="{{ route('withdrawals.index') }}" class="{{ request()->routeIs('withdrawals.*') ? 'active' : '' }}"><span class="ico">🏧</span> Withdraw</a></li>
-                <li><a href="{{ route('plans.index') }}" class="{{ request()->routeIs('plans.*') ? 'active' : '' }}"><span class="ico">👑</span> Plans</a></li>
-                <li><a href="{{ route('transactions.index') }}" class="{{ request()->routeIs('transactions.*') ? 'active' : '' }}"><span class="ico">💱</span> Transactions</a></li>
-                <li><a href="{{ route('referrals.index') }}" class="{{ request()->routeIs('referrals.*') ? 'active' : '' }}"><span class="ico">🤝</span> Referrals</a></li>
-                <li><a href="{{ route('account.index') }}" class="{{ request()->routeIs('account.*') ? 'active' : '' }}"><span class="ico">👤</span> Account</a></li>
+                <li><a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"><span class="ico"><x-icon name="layout-dashboard" /></span> Dashboard</a></li>
+                <li><a href="{{ route('ads.index') }}" class="{{ request()->routeIs('ads.*') ? 'active' : '' }}"><span class="ico"><x-icon name="mouse-pointer-click" /></span> Watch Ads</a></li>
+                <li><a href="{{ route('rewards.index') }}" class="{{ request()->routeIs('rewards.*') ? 'active' : '' }}"><span class="ico"><x-icon name="ferris-wheel" /></span> Spin &amp; Rewards</a></li>
+                <li><a href="{{ route('deposits.index') }}" class="{{ request()->routeIs('deposits.*') ? 'active' : '' }}"><span class="ico"><x-icon name="credit-card" /></span> Deposit</a></li>
+                <li><a href="{{ route('withdrawals.index') }}" class="{{ request()->routeIs('withdrawals.*') ? 'active' : '' }}"><span class="ico"><x-icon name="banknote" /></span> Withdraw</a></li>
+                <li><a href="{{ route('plans.index') }}" class="{{ request()->routeIs('plans.*') ? 'active' : '' }}"><span class="ico"><x-icon name="crown" /></span> Plans</a></li>
+                <li><a href="{{ route('transactions.index') }}" class="{{ request()->routeIs('transactions.*') ? 'active' : '' }}"><span class="ico"><x-icon name="receipt-text" /></span> Transactions</a></li>
+                <li><a href="{{ route('referrals.index') }}" class="{{ request()->routeIs('referrals.*') ? 'active' : '' }}"><span class="ico"><x-icon name="handshake" /></span> Referrals</a></li>
+                <li><a href="{{ route('account.index') }}" class="{{ request()->routeIs('account.*') ? 'active' : '' }}"><span class="ico"><x-icon name="user" /></span> Account</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">@csrf
-                        <button type="submit" class="menu-logout" style="all:unset;display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;color:var(--muted);font-weight:600;cursor:pointer;width:100%"><span class="ico">🚪</span> Logout</button>
+                        <button type="submit" class="menu-logout" style="all:unset;display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;color:var(--muted);font-weight:600;cursor:pointer;width:100%"><span class="ico"><x-icon name="log-out" /></span> Logout</button>
                     </form>
                 </li>
             </ul>
@@ -58,7 +59,7 @@
 
         <main class="main">
             <header class="topbar">
-                <label for="nav" class="side-toggle">☰</label>
+                <label for="nav" class="side-toggle"><x-icon name="menu" size="20" /></label>
                 <h3 style="margin:0;font-size:19px">{{ $title }}</h3>
                 <div class="bal"><small>Balance</small> ${{ number_format(auth()->user()->balance, 2) }}</div>
             </header>

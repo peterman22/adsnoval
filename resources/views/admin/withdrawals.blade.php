@@ -20,7 +20,7 @@
       <button class="btn btn-ghost btn-sm" style="margin-top:6px">Reject &amp; refund</button>
     </form></details>
 @else
-  @if($w->status==3 && $w->admin_note)<span class="muted" style="font-size:12px">✕ {{ $w->admin_note }}</span>@else—@endif
+  @if($w->status==3 && $w->admin_note)<span class="muted" style="font-size:12px">{{ $w->admin_note }}</span>@else—@endif
 @endif</td>
 </tr>
 @empty<tr><td colspan="6" class="muted">No withdrawals</td></tr>@endforelse

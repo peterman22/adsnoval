@@ -1,7 +1,7 @@
 <x-guest-layout>
 <section class="section" style="padding-top:48px"><div class="container" style="max-width:420px">
 <div class="card center">
-  <div style="font-size:40px">✉️</div>
+  <div style="color:var(--brand-2)"><x-icon name="mail" size="40" /></div>
   <h1 style="font-size:26px">Verify your email</h1>
   <p>Enter the 6-digit code we sent to your inbox.</p>
   @if(session('error'))<div class="alert alert-error">{{ session('error') }}</div>@endif

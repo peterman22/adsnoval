@@ -30,7 +30,7 @@
         <div class="card center">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
                 <h3 style="margin:0;font-size:18px">Spin the Wheel</h3>
-                <span class="chip">🎟️ {{ $canSpin ? '1 free spin' : 'Back tomorrow' }}</span>
+                <span class="chip"><x-icon name="ticket" size="15" /> {{ $canSpin ? '1 free spin' : 'Back tomorrow' }}</span>
             </div>
             <div class="wheel-wrap">
                 <div class="pointer"></div>
@@ -42,14 +42,14 @@
                 <button id="spin" class="hub {{ $canSpin ? '' : 'off' }}" {{ $canSpin ? '' : 'disabled' }}>SPIN</button>
             </div>
             <p id="spinres" class="muted">{{ $canSpin ? 'Tap SPIN to try your luck!' : 'You already spun today.' }}</p>
-            <p class="muted" style="font-size:13px">🎟️ Free Ads: <b id="freeads" style="color:var(--brand-2)">{{ (int) $user->free_ad_credits }}</b> · Win 1 Free Ad every {{ $freeAdEvery }} spins</p>
+            <p class="muted" style="font-size:13px"><x-icon name="ticket" size="14" /> Free Ads: <b id="freeads" style="color:var(--brand-2)">{{ (int) $user->free_ad_credits }}</b> · Win 1 Free Ad every {{ $freeAdEvery }} spins</p>
         </div>
 
         <!-- Streak -->
         <div class="card">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
                 <h3 style="margin:0;font-size:18px">Daily Streak</h3>
-                <span class="chip">🔥 {{ (int) $user->streak_count }} days</span>
+                <span class="chip"><x-icon name="flame" size="15" /> {{ (int) $user->streak_count }} days</span>
             </div>
             @php $dots = ($user->streak_count % 7 == 0 && $user->streak_count > 0) ? 7 : $user->streak_count % 7; @endphp
             <div class="streak-days">
@@ -62,7 +62,7 @@
             </form>
             <h5 style="margin:20px 0 6px">Streak milestones</h5>
             @foreach ($tiers as $day => $amt)
-                <div class="milestone"><span>🏅 Day {{ $day }}+</span><b style="color:var(--green)">${{ number_format($amt,2) }}</b></div>
+                <div class="milestone"><span><x-icon name="medal" size="15" /> Day {{ $day }}+</span><b style="color:var(--green)">${{ number_format($amt,2) }}</b></div>
             @endforeach
         </div>
     </div>
@@ -82,8 +82,8 @@
                     var d = o.d, target = d.index*seg + seg/2; spins += 6;
                     wheel.style.transform = 'rotate(' + (spins*360 - target) + 'deg)';
                     setTimeout(function(){
-                        var prize = d.type === 'free_ad' ? '1 Free Ad 🎟️' : d.label;
-                        res.innerHTML = '🎉 You won <b style="color:var(--green)">' + prize + '</b>!';
+                        var prize = d.type === 'free_ad' ? '1 Free Ad' : d.label;
+                        res.innerHTML = 'You won <b style="color:var(--green)">' + prize + '</b>!';
                         document.getElementById('freeads').textContent = d.free_ad_credits;
                         btn.classList.add('off'); btn.disabled = true;
                     }, 5100);

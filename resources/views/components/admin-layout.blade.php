@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }} — Admin</title>
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
     <style>
         .app { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
         .side { background: linear-gradient(180deg, var(--surface), var(--bg-2)); border-right: 1px solid var(--border); padding: 18px 14px; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
@@ -28,22 +29,22 @@
 <body>
     <div class="app">
         <aside class="side">
-            <a href="{{ route('admin.dashboard') }}" class="brand"><span class="brand-mark">▲</span> Admin</a>
+            <a href="{{ route('admin.dashboard') }}" class="brand"><img src="{{ asset('assets/img/logo.png') }}" class="brand-logo" alt="{{ config('app.name') }}"> Admin</a>
             <ul class="menu">
                 @php $ri = fn($p) => request()->routeIs($p) ? 'active' : ''; @endphp
-                <li><a href="{{ route('admin.dashboard') }}" class="{{ $ri('admin.dashboard') }}">📊 Dashboard</a></li>
-                <li><a href="{{ route('admin.deposits') }}" class="{{ $ri('admin.deposits*') }}">💳 Deposits</a></li>
-                <li><a href="{{ route('admin.withdrawals') }}" class="{{ $ri('admin.withdrawals*') }}">🏧 Withdrawals</a></li>
-                <li><a href="{{ route('admin.ads') }}" class="{{ $ri('admin.ads*') }}">🖱️ Ads</a></li>
-                <li><a href="{{ route('admin.plans') }}" class="{{ $ri('admin.plans*') }}">👑 Plans</a></li>
-                <li><a href="{{ route('admin.crypto') }}" class="{{ $ri('admin.crypto*') }}">₿ Crypto Wallets</a></li>
-                <li><a href="{{ route('admin.users') }}" class="{{ $ri('admin.users*') }}">👥 Users</a></li>
-                <li><a href="{{ route('admin.templates') }}" class="{{ $ri('admin.templates*') }}">✉️ Email Templates</a></li>
-                <li><a href="{{ route('admin.account') }}" class="{{ $ri('admin.account*') }}">🔑 My Account</a></li>
-                <li><a href="{{ route('admin.settings') }}" class="{{ $ri('admin.settings*') }}">⚙️ Settings</a></li>
+                <li><a href="{{ route('admin.dashboard') }}" class="{{ $ri('admin.dashboard') }}"><x-icon name="layout-dashboard" /> Dashboard</a></li>
+                <li><a href="{{ route('admin.deposits') }}" class="{{ $ri('admin.deposits*') }}"><x-icon name="credit-card" /> Deposits</a></li>
+                <li><a href="{{ route('admin.withdrawals') }}" class="{{ $ri('admin.withdrawals*') }}"><x-icon name="banknote" /> Withdrawals</a></li>
+                <li><a href="{{ route('admin.ads') }}" class="{{ $ri('admin.ads*') }}"><x-icon name="mouse-pointer-click" /> Ads</a></li>
+                <li><a href="{{ route('admin.plans') }}" class="{{ $ri('admin.plans*') }}"><x-icon name="crown" /> Plans</a></li>
+                <li><a href="{{ route('admin.crypto') }}" class="{{ $ri('admin.crypto*') }}"><x-icon name="bitcoin" /> Crypto Wallets</a></li>
+                <li><a href="{{ route('admin.users') }}" class="{{ $ri('admin.users*') }}"><x-icon name="users" /> Users</a></li>
+                <li><a href="{{ route('admin.templates') }}" class="{{ $ri('admin.templates*') }}"><x-icon name="mail" /> Email Templates</a></li>
+                <li><a href="{{ route('admin.account') }}" class="{{ $ri('admin.account*') }}"><x-icon name="key-round" /> My Account</a></li>
+                <li><a href="{{ route('admin.settings') }}" class="{{ $ri('admin.settings*') }}"><x-icon name="settings" /> Settings</a></li>
                 <li>
                     <form method="POST" action="{{ route('admin.logout') }}">@csrf
-                        <button style="all:unset;display:flex;gap:11px;padding:10px 13px;border-radius:11px;color:var(--muted);font-weight:600;cursor:pointer;width:100%">🚪 Logout</button>
+                        <button style="all:unset;display:flex;gap:11px;padding:10px 13px;border-radius:11px;color:var(--muted);font-weight:600;cursor:pointer;width:100%"><x-icon name="log-out" /> Logout</button>
                     </form>
                 </li>
             </ul>

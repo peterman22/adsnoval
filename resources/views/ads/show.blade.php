@@ -35,8 +35,8 @@
 </head>
 <body>
     <header class="aw-top">
-        <a href="{{ route('ads.index') }}" class="brand" style="font-size:18px"><span class="brand-mark">▲</span> Watch &amp; Earn</a>
-        <div class="aw-reward">🎁 Reward <b>${{ number_format($ad->reward, 2) }}</b></div>
+        <a href="{{ route('ads.index') }}" class="brand" style="font-size:18px"><img src="{{ asset('assets/img/logo.png') }}" class="brand-logo" alt="{{ config('app.name') }}"> Watch &amp; Earn</a>
+        <div class="aw-reward"><x-icon name="gift" /> Reward <b>${{ number_format($ad->reward, 2) }}</b></div>
     </header>
     <div id="bar-wrap"><div id="bar"></div></div>
 
@@ -53,7 +53,7 @@
                 @elseif ($ad->type == 3)
                     {!! $ad->body !!}
                 @elseif ($ad->type == 4)
-                    <div class="aw-video"><iframe src="{{ $ad->body }}" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+                    <div class="aw-video"><video id="adVideo" src="{{ $ad->body }}" autoplay muted loop playsinline controls controlslist="nodownload noremoteplayback noplaybackrate" disablepictureinpicture oncontextmenu="return false" style="width:100%;height:100%;object-fit:contain;background:#000"></video></div>
                 @else
                     <iframe src="{{ $ad->body }}"></iframe>
                 @endif
@@ -89,6 +89,8 @@
                 bar.style.width = pct + '%';
                 if (pct >= 100){
                     clearInterval(t);
+                    var v = document.getElementById('adVideo');
+                    if (v){ v.loop = false; v.pause(); }   // auto-stop the video when time's up
                     cap.classList.add('show');
                     status.textContent = 'Solve the sum to claim your reward';
                     go.removeAttribute('disabled');

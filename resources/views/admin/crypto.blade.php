@@ -22,7 +22,7 @@
     <h3 style="font-size:17px">Wallets ({{ $methods->count() }})</h3>
     @forelse($methods as $m)
       <details style="border-bottom:1px solid var(--border);padding:10px 0">
-        <summary style="cursor:pointer;display:flex;justify-content:space-between"><b>{{ $m->name }}</b> <span class="muted">{{ $m->currency }} @if($m->qr_path)📷@endif @if(!$m->is_active)(off)@endif</span></summary>
+        <summary style="cursor:pointer;display:flex;justify-content:space-between"><b>{{ $m->name }}</b> <span class="muted">{{ $m->currency }} @if($m->qr_path)<x-icon name="image" size="14" />@endif @if(!$m->is_active)(off)@endif</span></summary>
         <form method="POST" action="{{ route('admin.crypto.update',$m) }}" enctype="multipart/form-data" style="margin-top:10px">@csrf
           <div class="field"><label class="label">Name</label><input class="input" name="name" value="{{ $m->name }}"></div>
           <div class="grid grid-2" style="gap:10px">

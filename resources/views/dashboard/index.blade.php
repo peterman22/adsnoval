@@ -15,7 +15,7 @@
         @media (max-width: 900px){ .dash-row { grid-template-columns: 1fr; } }
         .spin-card { display: flex; align-items: center; gap: 20px; }
         .mini-wheel { flex: 0 0 110px; width: 110px; height: 110px; border-radius: 50%; border: 6px solid rgba(255,255,255,.08); box-shadow: 0 0 0 5px rgba(255,122,26,.25); background: conic-gradient(#7c1f6e 0 45deg,#3a1e6e 45deg 90deg,#8a3d1a 90deg 135deg,#5a2ea8 135deg 180deg,#a3521a 180deg 225deg,#42277a 225deg 270deg,#7c1f6e 270deg 315deg,#5a2ea8 315deg 360deg); position: relative; }
-        .mini-wheel::after { content:'🎡'; position:absolute; inset:0; display:grid; place-items:center; font-size:26px; }
+        .mini-wheel::after { content:''; position:absolute; inset:0; margin:auto; width:18px; height:18px; border-radius:50%; background:#fff; box-shadow:0 0 0 5px rgba(255,122,26,.55); }
         .payrow { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border-radius: 11px; background: rgba(255,255,255,.03); border: 1px solid var(--border); margin-bottom: 7px; }
         .payrow .av { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 11px; background: var(--grad-soft); color: var(--brand-2); }
         .payrow .t { flex: 1; min-width: 0; font-weight: 700; font-size: 13px; overflow: hidden; } .payrow .t small { display: block; color: var(--muted); font-size: 11px; }
@@ -25,24 +25,24 @@
 
     <div class="hero-card">
         <div>
-            <span class="chip" style="background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.25)">👋 Welcome back</span>
+            <span class="chip" style="background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.25)"><x-icon name="hand" size="15" /> Welcome back</span>
             <div style="margin-top:14px"><small>Available Balance</small><h2>${{ number_format($stats['balance'], 2) }}</h2></div>
         </div>
         <div class="hero-actions">
-            <a href="{{ route('ads.index') }}" class="btn" style="background:#fff;color:#c2410c">▶ Watch Ads</a>
-            <a href="{{ route('withdrawals.index') }}" class="btn btn-ghost" style="background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.3)">🏧 Withdraw</a>
+            <a href="{{ route('ads.index') }}" class="btn" style="background:#fff;color:#c2410c"><x-icon name="play" size="15" /> Watch Ads</a>
+            <a href="{{ route('withdrawals.index') }}" class="btn btn-ghost" style="background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.3)"><x-icon name="banknote" size="16" /> Withdraw</a>
         </div>
     </div>
 
     <div class="tiles">
-        <div class="tile card"><div class="ico">👁️</div><small>Ads watched today</small><b>{{ $stats['today'] }}</b></div>
-        <div class="tile card"><div class="ico">⏳</div><small>Remaining today</small><b>{{ $stats['remaining'] }}</b></div>
-        <div class="tile card"><div class="ico">🏆</div><small>Total watched</small><b>{{ $stats['total_views'] }}</b></div>
-        <div class="tile card"><div class="ico">💰</div><small>Total earned</small><b>${{ number_format($stats['total_earned'], 2) }}</b></div>
-        <div class="tile card"><div class="ico">🔥</div><small>Day streak</small><b>{{ $stats['streak'] }}</b></div>
-        <div class="tile card"><div class="ico">🤝</div><small>Referrals</small><b>{{ $stats['referrals'] }}</b></div>
-        <div class="tile card"><div class="ico">🏧</div><small>Total withdrawn</small><b>${{ number_format($stats['withdrawn'], 2) }}</b></div>
-        <div class="tile card"><div class="ico">👑</div><small>Plan</small><b style="font-size:17px">{{ $user->plan?->name ?? 'Free' }}</b></div>
+        <div class="tile card"><div class="ico"><x-icon name="eye" size="20" /></div><small>Ads watched today</small><b>{{ $stats['today'] }}</b></div>
+        <div class="tile card"><div class="ico"><x-icon name="hourglass" size="20" /></div><small>Remaining today</small><b>{{ $stats['remaining'] }}</b></div>
+        <div class="tile card"><div class="ico"><x-icon name="trophy" size="20" /></div><small>Total watched</small><b>{{ $stats['total_views'] }}</b></div>
+        <div class="tile card"><div class="ico"><x-icon name="wallet" size="20" /></div><small>Total earned</small><b>${{ number_format($stats['total_earned'], 2) }}</b></div>
+        <div class="tile card"><div class="ico"><x-icon name="flame" size="20" /></div><small>Day streak</small><b>{{ $stats['streak'] }}</b></div>
+        <div class="tile card"><div class="ico"><x-icon name="handshake" size="20" /></div><small>Referrals</small><b>{{ $stats['referrals'] }}</b></div>
+        <div class="tile card"><div class="ico"><x-icon name="banknote" size="20" /></div><small>Total withdrawn</small><b>${{ number_format($stats['withdrawn'], 2) }}</b></div>
+        <div class="tile card"><div class="ico"><x-icon name="crown" size="20" /></div><small>Plan</small><b style="font-size:17px">{{ $user->plan?->name ?? 'Free' }}</b></div>
     </div>
 
     @php $canSpin = (string) ($user->last_spin_at ?? '') !== \Carbon\Carbon::today()->toDateString(); @endphp
@@ -51,9 +51,9 @@
         <div class="card spin-card">
             <div class="mini-wheel"></div>
             <div>
-                <span class="chip">🎡 Daily Spin</span>
+                <span class="chip"><x-icon name="ferris-wheel" size="16" /> Daily Spin</span>
                 <h3 style="font-size:18px;margin:10px 0 4px">{{ $canSpin ? 'Your free spin is ready!' : 'Come back tomorrow' }}</h3>
-                <p class="muted" style="margin:0 0 12px;font-size:14px">🔥 {{ $stats['streak'] }}-day streak · spin daily for cash &amp; free ads.</p>
+                <p class="muted" style="margin:0 0 12px;font-size:14px"><x-icon name="flame" size="14" /> {{ $stats['streak'] }}-day streak · spin daily for cash &amp; free ads.</p>
                 <a href="{{ route('rewards.index') }}" class="btn {{ $canSpin ? 'btn-primary' : 'btn-ghost' }}">{{ $canSpin ? 'Spin the Wheel →' : 'View Rewards →' }}</a>
             </div>
         </div>
