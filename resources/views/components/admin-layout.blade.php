@@ -39,6 +39,7 @@
                 <li><a href="{{ route('admin.crypto') }}" class="{{ $ri('admin.crypto*') }}">₿ Crypto Wallets</a></li>
                 <li><a href="{{ route('admin.users') }}" class="{{ $ri('admin.users*') }}">👥 Users</a></li>
                 <li><a href="{{ route('admin.templates') }}" class="{{ $ri('admin.templates*') }}">✉️ Email Templates</a></li>
+                <li><a href="{{ route('admin.account') }}" class="{{ $ri('admin.account*') }}">🔑 My Account</a></li>
                 <li><a href="{{ route('admin.settings') }}" class="{{ $ri('admin.settings*') }}">⚙️ Settings</a></li>
                 <li>
                     <form method="POST" action="{{ route('admin.logout') }}">@csrf

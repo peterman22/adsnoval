@@ -53,6 +53,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
     Route::get('referrals', [ReferralController::class, 'index'])->name('referrals.index');
+
+    Route::get('account', [\App\Http\Controllers\ProfileController::class, 'index'])->name('account.index');
+    Route::post('account/profile', [\App\Http\Controllers\ProfileController::class, 'updateProfile'])->name('account.profile');
+    Route::post('account/password', [\App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('account.password');
 });
 
 /* ---------------- Admin panel ---------------- */
@@ -92,6 +96,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('users', [Admin\UserController::class, 'index'])->name('users');
         Route::post('users/{user}/ban', [Admin\UserController::class, 'toggleBan'])->name('users.ban');
         Route::post('users/{user}/balance', [Admin\UserController::class, 'adjustBalance'])->name('users.balance');
+
+        Route::get('account', [Admin\AccountController::class, 'index'])->name('account');
+        Route::post('account/profile', [Admin\AccountController::class, 'updateProfile'])->name('account.profile');
+        Route::post('account/password', [Admin\AccountController::class, 'changePassword'])->name('account.password');
+        Route::post('account/add', [Admin\AccountController::class, 'addAdmin'])->name('account.add');
+        Route::delete('account/{admin}', [Admin\AccountController::class, 'deleteAdmin'])->name('account.delete');
 
         Route::get('settings', [Admin\SettingController::class, 'index'])->name('settings');
         Route::post('settings', [Admin\SettingController::class, 'save'])->name('settings.save');

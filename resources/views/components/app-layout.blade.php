@@ -47,6 +47,7 @@
                 <li><a href="{{ route('plans.index') }}" class="{{ request()->routeIs('plans.*') ? 'active' : '' }}"><span class="ico">👑</span> Plans</a></li>
                 <li><a href="{{ route('transactions.index') }}" class="{{ request()->routeIs('transactions.*') ? 'active' : '' }}"><span class="ico">💱</span> Transactions</a></li>
                 <li><a href="{{ route('referrals.index') }}" class="{{ request()->routeIs('referrals.*') ? 'active' : '' }}"><span class="ico">🤝</span> Referrals</a></li>
+                <li><a href="{{ route('account.index') }}" class="{{ request()->routeIs('account.*') ? 'active' : '' }}"><span class="ico">👤</span> Account</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">@csrf
                         <button type="submit" class="menu-logout" style="all:unset;display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;color:var(--muted);font-weight:600;cursor:pointer;width:100%"><span class="ico">🚪</span> Logout</button>
