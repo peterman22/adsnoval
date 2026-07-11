@@ -46,5 +46,12 @@ class DatabaseSeeder extends Seeder
             ['title'=>'Discover Wikipedia','type'=>1,'body'=>'https://www.wikipedia.org/','reward'=>0.02,'duration'=>10,'max_views'=>1000,'views_left'=>1000,'status'=>1,'created_at'=>now(),'updated_at'=>now()],
             ['title'=>'Nature in 4K','type'=>4,'body'=>'https://www.youtube.com/embed/ScMzIvxBSi4','reward'=>0.03,'duration'=>15,'max_views'=>1000,'views_left'=>1000,'status'=>1,'created_at'=>now(),'updated_at'=>now()],
         ]);
+
+        // Demo user for testing (login: demo / password)
+        \App\Models\User::updateOrCreate(['username'=>'demo'], [
+            'name'=>'Demo User','email'=>'demo@adsnoval.test',
+            'password'=>Hash::make('password'),'ref_code'=>'DEMO1234','daily_limit'=>10,
+            'email_verified_at'=>now(),
+        ]);
     }
 }
