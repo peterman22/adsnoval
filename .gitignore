@@ -24,3 +24,6 @@ yarn-error.log
 
 /database/database.sqlite
 /public/assets/uploads
+
+# Uploaded ad videos (served from public, not versioned)
+/public/assets/ads/
