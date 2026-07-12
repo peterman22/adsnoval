@@ -110,9 +110,13 @@ class Mailer
     protected static function wrap(string $inner, string $title): string
     {
         $site = e(Setting::val('site_name', config('app.name')));
+        $logo = e(asset('assets/img/logo.png'));
         return '<!doctype html><html><body style="margin:0;background:#0b0f1c;font-family:Arial,Helvetica,sans-serif;color:#e8edf9">'
             .'<div style="max-width:560px;margin:0 auto;padding:30px">'
-            .'<div style="text-align:center;margin-bottom:22px"><span style="display:inline-block;padding:10px 18px;border-radius:12px;background:linear-gradient(135deg,#ff9d4d,#ff7a1a);color:#1a1205;font-weight:800;font-size:18px">▲ '.$site.'</span></div>'
+            .'<div style="text-align:center;margin-bottom:22px">'
+            .'<img src="'.$logo.'" alt="'.$site.'" width="40" height="40" style="display:inline-block;vertical-align:middle;border:0;border-radius:9px">'
+            .'<span style="display:inline-block;vertical-align:middle;margin-left:10px;font-weight:800;font-size:20px;color:#ff9d4d">'.$site.'</span>'
+            .'</div>'
             .'<div style="background:#141b2d;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px;line-height:1.6">'.$inner.'</div>'
             .'<p style="text-align:center;color:#5f6c85;font-size:12px;margin-top:20px">© '.date('Y').' '.$site.'. All rights reserved.</p>'
             .'</div></body></html>';
