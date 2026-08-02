@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             ['min_withdraw','5'],['withdraw_fee_percent','0'],
             ['spin_free_ad_every','5'],['calc_avg_click','0.05'],
             ['ref_percent_1','10'],['ref_percent_2','3'],['ref_percent_3','1'],
-            ['require_email_verification','0'],
+            ['require_email_verification','0'],['require_kyc','1'],
+            ['mail_driver','smtp'],['resend_api_key',''],
             ['mail_host',''],['mail_port','587'],['mail_username',''],['mail_password',''],
             ['mail_encryption','tls'],['mail_from_address','no-reply@adsnoval.com'],['mail_from_name','AdsNoval'],
         ] as [$k,$v]) Setting::updateOrCreate(['key'=>$k],['value'=>$v]);
@@ -48,10 +49,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Demo user for testing (login: demo / password)
-        \App\Models\User::updateOrCreate(['username'=>'demo'], [
+        $demo = \App\Models\User::updateOrCreate(['username'=>'demo'], [
             'name'=>'Demo User','email'=>'demo@adsnoval.test',
             'password'=>Hash::make('password'),'ref_code'=>'DEMO1234','daily_limit'=>10,
             'email_verified_at'=>now(),
         ]);
+        $demo->forceFill(['kyc_status'=>'approved'])->save(); // not in $fillable — set directly
     }
 }

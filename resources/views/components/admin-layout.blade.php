@@ -48,6 +48,7 @@
                 <li><a href="{{ route('admin.plans') }}" class="{{ $ri('admin.plans*') }}"><x-icon name="crown" /> Plans</a></li>
                 <li><a href="{{ route('admin.crypto') }}" class="{{ $ri('admin.crypto*') }}"><x-icon name="bitcoin" /> Crypto Wallets</a></li>
                 <li><a href="{{ route('admin.users') }}" class="{{ $ri('admin.users*') }}"><x-icon name="users" /> Users</a></li>
+                <li><a href="{{ route('admin.kyc') }}" class="{{ $ri('admin.kyc*') }}"><x-icon name="shield" /> KYC Verifications</a></li>
                 <li><a href="{{ route('admin.templates') }}" class="{{ $ri('admin.templates*') }}"><x-icon name="mail" /> Email Templates</a></li>
                 <li><a href="{{ route('admin.account') }}" class="{{ $ri('admin.account*') }}"><x-icon name="key-round" /> My Account</a></li>
                 <li><a href="{{ route('admin.settings') }}" class="{{ $ri('admin.settings*') }}"><x-icon name="settings" /> Settings</a></li>

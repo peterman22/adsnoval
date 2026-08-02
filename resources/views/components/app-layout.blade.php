@@ -48,6 +48,7 @@
                 <li><a href="{{ route('plans.index') }}" class="{{ request()->routeIs('plans.*') ? 'active' : '' }}"><span class="ico"><x-icon name="crown" /></span> Plans</a></li>
                 <li><a href="{{ route('transactions.index') }}" class="{{ request()->routeIs('transactions.*') ? 'active' : '' }}"><span class="ico"><x-icon name="receipt-text" /></span> Transactions</a></li>
                 <li><a href="{{ route('referrals.index') }}" class="{{ request()->routeIs('referrals.*') ? 'active' : '' }}"><span class="ico"><x-icon name="handshake" /></span> Referrals</a></li>
+                <li><a href="{{ route('kyc.index') }}" class="{{ request()->routeIs('kyc.*') ? 'active' : '' }}"><span class="ico"><x-icon name="shield" /></span> Verify Identity</a></li>
                 <li><a href="{{ route('account.index') }}" class="{{ request()->routeIs('account.*') ? 'active' : '' }}"><span class="ico"><x-icon name="user" /></span> Account</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">@csrf

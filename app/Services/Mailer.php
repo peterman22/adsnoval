@@ -6,6 +6,7 @@ use App\Models\EmailTemplate;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -69,10 +70,37 @@ class Mailer
      */
     public static function sendHtml(string $to, string $subject, string $body): void
     {
+        // Resend HTTP API when selected and keyed; otherwise fall back to SMTP.
+        if (Setting::val('mail_driver', 'smtp') === 'resend' && Setting::val('resend_api_key')) {
+            self::sendViaResend($to, $subject, $body);
+            return;
+        }
+
         self::configureSmtp();
         Mail::html($body, function ($m) use ($to, $subject) {
             $m->to($to)->subject($subject);
         });
+    }
+
+    /** Deliver through Resend's HTTP API (https://resend.com). */
+    protected static function sendViaResend(string $to, string $subject, string $body): void
+    {
+        $from = Setting::val('mail_from_address', 'no-reply@example.com');
+        $name = Setting::val('mail_from_name', Setting::val('site_name', config('app.name')));
+
+        $resp = Http::withToken(Setting::val('resend_api_key'))
+            ->acceptJson()
+            ->timeout(20)
+            ->post('https://api.resend.com/emails', [
+                'from'    => $name ? $name.' <'.$from.'>' : $from,
+                'to'      => [$to],
+                'subject' => $subject,
+                'html'    => $body,
+            ]);
+
+        if ($resp->failed()) {
+            throw new \RuntimeException('Resend API error ('.$resp->status().'): '.$resp->body());
+        }
     }
 
     /** Realistic sample values so templates can be previewed/tested. */

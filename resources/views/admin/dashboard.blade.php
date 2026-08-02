@@ -8,6 +8,7 @@
   <div class="card"><small class="muted">Total withdrawn</small><h2 style="margin:4px 0 0">${{ number_format($stats['withdraws_total'],2) }}</h2></div>
   <div class="card"><small class="muted">Ads</small><h2 style="margin:4px 0 0">{{ $stats['ads'] }}</h2></div>
   <div class="card"><small class="muted">Ad earnings paid</small><h2 style="margin:4px 0 0">${{ number_format($stats['earned'],2) }}</h2></div>
+  <a class="card" href="{{ route('admin.kyc') }}" style="text-decoration:none;color:inherit"><small class="muted">Pending KYC</small><h2 style="margin:4px 0 0;color:{{ $stats['kyc_pending'] ? '#fbbf24' : 'inherit' }}">{{ $stats['kyc_pending'] }}</h2></a>
 </div>
 <div class="grid grid-2">
   <div class="card"><h3 style="font-size:17px">Recent deposits</h3>

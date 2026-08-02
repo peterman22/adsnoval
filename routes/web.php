@@ -34,9 +34,16 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth')->na
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('ads', [AdController::class, 'index'])->name('ads.index');
-    Route::get('ads/{ad}', [AdController::class, 'show'])->name('ads.show');
-    Route::post('ads/{ad}/confirm', [AdController::class, 'confirm'])->name('ads.confirm');
+    // Identity (KYC) verification
+    Route::get('verify-identity', [\App\Http\Controllers\KycController::class, 'index'])->name('kyc.index');
+    Route::post('verify-identity', [\App\Http\Controllers\KycController::class, 'submit'])->name('kyc.submit');
+
+    // Watching ads requires an approved identity (when KYC is enabled)
+    Route::middleware('kyc')->group(function () {
+        Route::get('ads', [AdController::class, 'index'])->name('ads.index');
+        Route::get('ads/{ad}', [AdController::class, 'show'])->name('ads.show');
+        Route::post('ads/{ad}/confirm', [AdController::class, 'confirm'])->name('ads.confirm');
+    });
 
     Route::get('rewards', [RewardController::class, 'index'])->name('rewards.index');
     Route::post('rewards/check-in', [RewardController::class, 'checkIn'])->name('rewards.checkin');
@@ -96,6 +103,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('users', [Admin\UserController::class, 'index'])->name('users');
         Route::post('users/{user}/ban', [Admin\UserController::class, 'toggleBan'])->name('users.ban');
         Route::post('users/{user}/balance', [Admin\UserController::class, 'adjustBalance'])->name('users.balance');
+
+        Route::get('kyc', [Admin\KycController::class, 'index'])->name('kyc');
+        Route::get('kyc/{verification}/file/{which}', [Admin\KycController::class, 'file'])->name('kyc.file');
+        Route::post('kyc/{verification}/approve', [Admin\KycController::class, 'approve'])->name('kyc.approve');
+        Route::post('kyc/{verification}/reject', [Admin\KycController::class, 'reject'])->name('kyc.reject');
 
         Route::get('account', [Admin\AccountController::class, 'index'])->name('account');
         Route::post('account/profile', [Admin\AccountController::class, 'updateProfile'])->name('account.profile');

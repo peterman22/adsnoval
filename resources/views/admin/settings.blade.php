@@ -14,10 +14,20 @@
       </div>
     </div>
     <label style="display:block;margin-bottom:8px"><input type="checkbox" name="require_email_verification" value="1" @checked($s('require_email_verification')==='1')> Require email (OTP) verification</label>
+    <label style="display:block;margin-bottom:8px"><input type="checkbox" name="require_kyc" value="1" @checked($s('require_kyc','1')==='1')> Require identity (KYC) verification before watching ads</label>
   </div>
   <div class="card">
-    <h3 style="font-size:17px">SMTP (email)</h3>
-    <div class="field"><label class="label">Host</label><input class="input" name="mail_host" value="{{ $s('mail_host') }}" placeholder="smtp.example.com"></div>
+    <h3 style="font-size:17px">Email delivery</h3>
+    <div class="field"><label class="label">Provider</label>
+      <select class="input" name="mail_driver">
+        <option value="smtp" @selected($s('mail_driver','smtp')==='smtp')>SMTP</option>
+        <option value="resend" @selected($s('mail_driver')==='resend')>Resend (API)</option>
+      </select>
+      <small class="muted">Choose “Resend” to send via the Resend API using the key below. SMTP fields are used otherwise.</small>
+    </div>
+    <div class="field"><label class="label">Resend API key</label><input class="input" type="password" name="resend_api_key" value="{{ $s('resend_api_key') }}" placeholder="re_..."></div>
+    <hr style="border:none;border-top:1px solid var(--border);margin:14px 0">
+    <div class="field"><label class="label">SMTP Host</label><input class="input" name="mail_host" value="{{ $s('mail_host') }}" placeholder="smtp.example.com"></div>
     <div class="grid grid-2" style="gap:10px">
       <div class="field"><label class="label">Port</label><input class="input" name="mail_port" value="{{ $s('mail_port','587') }}"></div>
       <div class="field"><label class="label">Encryption</label><input class="input" name="mail_encryption" value="{{ $s('mail_encryption','tls') }}"></div>

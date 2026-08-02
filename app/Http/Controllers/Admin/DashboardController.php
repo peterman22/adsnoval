@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use App\Models\{User,Deposit,Withdrawal,Ad,Transaction};
+use App\Models\{User,Deposit,Withdrawal,Ad,Transaction,KycVerification};
 class DashboardController extends Controller {
     public function index(){
         $stats=[
@@ -13,6 +13,7 @@ class DashboardController extends Controller {
             'withdraws_total'=>Withdrawal::paid()->sum('amount'),
             'ads'=>Ad::count(),
             'earned'=>Transaction::where('remark','ad_earn')->sum('amount'),
+            'kyc_pending'=>KycVerification::where('status',0)->count(),
         ];
         $recentDeposits=Deposit::with('user')->latest()->limit(6)->get();
         $recentWithdraws=Withdrawal::with('user')->latest()->limit(6)->get();

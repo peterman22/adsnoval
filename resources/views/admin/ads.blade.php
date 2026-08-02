@@ -27,8 +27,15 @@
   <div class="card">
     <h3 style="font-size:17px">All ads ({{ $ads->total() }})</h3>
     @forelse($ads as $a)
+      @php
+        $vf = null;
+        if (str_contains($a->body ?? '', '/assets/ads/')) {
+            $vp = public_path('assets/ads/'.basename(parse_url($a->body, PHP_URL_PATH)));
+            if (is_file($vp)) { $vb = filesize($vp); $vf = $vb >= 1048576 ? round($vb/1048576,1).' MB' : max(1,(int) round($vb/1024)).' KB'; }
+        }
+      @endphp
       <details style="border-bottom:1px solid var(--border);padding:10px 0">
-        <summary style="cursor:pointer;display:flex;justify-content:space-between"><b>{{ $a->title }}</b> <span class="muted">${{ number_format($a->reward,2) }} · {{ $a->views_left }}/{{ $a->max_views }} left @if($a->status!=1)(off)@endif</span></summary>
+        <summary style="cursor:pointer;display:flex;justify-content:space-between"><b>{{ $a->title }}</b> <span class="muted">${{ number_format($a->reward,2) }} · {{ $a->views_left }}/{{ $a->max_views }} left @if($vf) · <x-icon name="video" size="13" /> {{ $vf }}@endif @if($a->status!=1)(off)@endif</span></summary>
         <form method="POST" action="{{ route('admin.ads.update',$a) }}" enctype="multipart/form-data" style="margin-top:10px">@csrf
           <div class="field"><label class="label">Title</label><input class="input" name="title" value="{{ $a->title }}"></div>
           <div class="field"><label class="label">Type</label><select class="input" name="type">

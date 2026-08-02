@@ -39,6 +39,9 @@ class User extends Authenticatable
     public function withdrawals(): HasMany { return $this->hasMany(Withdrawal::class)->latest(); }
     public function referrals(): HasMany { return $this->hasMany(User::class, 'referred_by'); }
     public function referrer(): BelongsTo { return $this->belongsTo(User::class, 'referred_by'); }
+    public function kycVerifications(): HasMany { return $this->hasMany(KycVerification::class)->latest(); }
+
+    public function kycApproved(): bool { return $this->kyc_status === 'approved'; }
 
     /* Helpers */
     public function hasActivePlan(): bool
