@@ -14,7 +14,7 @@
       <div class="field"><label class="label">Body (URL or HTML)</label><textarea class="input" name="body" rows="3" placeholder="Paste a URL or HTML — or leave blank and upload a video below"></textarea></div>
       <div class="field"><label class="label" style="display:flex;align-items:center;gap:7px"><x-icon name="video" size="16" /> Or upload a video file</label>
         <input class="input" type="file" name="video" accept="video/mp4,video/webm,video/ogg">
-        <small class="muted">Uploading a file overrides the body and sets the type to Video. Max 100 MB (.mp4 / .webm).</small></div>
+        <small class="muted">Uploading a file overrides the body and sets the type to Video. Max 100 MB. It's automatically compressed (re-encoded smaller) to save storage.</small></div>
       <div class="grid grid-2" style="gap:12px">
         <div class="field"><label class="label">Reward ($)</label><input class="input" type="number" step="0.0001" name="reward" value="0.02" required></div>
         <div class="field"><label class="label">Watch seconds</label><input class="input" type="number" name="duration" value="10" required></div>
