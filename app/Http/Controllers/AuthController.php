@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -20,6 +21,8 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        $this->validateRecaptcha($request);
+
         $data = $request->validate([
             'name'     => 'required|string|max:60',
             'username' => 'required|alpha_dash|min:3|max:30|unique:users,username',
@@ -57,6 +60,44 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
         return redirect()->route('dashboard')->with('success', 'Welcome to '.config('app.name').'! Your account is ready.');
+    }
+
+    private function validateRecaptcha(Request $request): void
+    {
+        $secret = config('services.recaptcha.secret_key');
+
+        // Keep local development usable when reCAPTCHA keys are not configured.
+        if (blank($secret)) {
+            return;
+        }
+
+        $token = $request->input('g-recaptcha-response');
+        if (blank($token)) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'g-recaptcha-response' => 'Please complete the reCAPTCHA check.',
+            ]);
+        }
+
+        $response = Http::asForm()
+            ->timeout(10)
+            ->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret' => $secret,
+                'response' => $token,
+                'remoteip' => $request->ip(),
+            ]);
+
+        if (! $response->successful() || ! $response->json('success', false)) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'g-recaptcha-response' => 'The reCAPTCHA check failed. Please try again.',
+            ]);
+        }
+
+        if ($response->json('action') !== 'register'
+            || (float) $response->json('score', 0) < config('services.recaptcha.min_score', 0.5)) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'g-recaptcha-response' => 'The reCAPTCHA check failed. Please try again.',
+            ]);
+        }
     }
 
     /* -------- OTP email verification -------- */

@@ -40,9 +40,39 @@
                         <input type="hidden" name="ref" value="{{ $ref }}">
                         <p style="font-size:13px;color:var(--green)"><x-icon name="check" size="14" /> Referred by code <b>{{ $ref }}</b></p>
                     @endif
+                    @if (config('services.recaptcha.site_key') && config('services.recaptcha.secret_key'))
+                        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                    @endif
                     <button class="btn btn-primary btn-block btn-lg" type="submit">Create account</button>
                 </form>
             </div>
         </div>
     </section>
 </x-guest-layout>
+
+@if (config('services.recaptcha.site_key') && config('services.recaptcha.secret_key'))
+    @push('scripts')
+        <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}" async defer></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.querySelector('form[action="{{ route('register') }}"]');
+                const tokenField = document.getElementById('g-recaptcha-response');
+
+                if (!form || !tokenField) return;
+
+                form.addEventListener('submit', function (event) {
+                    if (tokenField.value) return;
+
+                    event.preventDefault();
+                    grecaptcha.ready(function () {
+                        grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', { action: 'register' })
+                            .then(function (token) {
+                                tokenField.value = token;
+                                form.submit();
+                            });
+                    });
+                });
+            });
+        </script>
+    @endpush
+@endif
