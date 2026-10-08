@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\KycVerification;
 use App\Services\Mailer;
-use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,8 +22,9 @@ class KycController extends Controller
         if ($user = $verification->user) {
             $user->kyc_status = 'approved';
             $user->save();
-            $this->notify($user->email, 'Identity verified',
-                '<h2 style="color:#fff;margin-top:0">You\'re verified ✅</h2><p>Hi '.e($user->name).', your identity has been approved. You can now watch ads and earn.</p>');
+            Mailer::sendTemplate($user->email, 'kyc_approved', [
+                'name' => $user->name, 'login_url' => route('login'),
+            ]);
         }
         return back()->with('success', 'Verification approved.');
     }
@@ -36,8 +36,9 @@ class KycController extends Controller
         if ($user = $verification->user) {
             $user->kyc_status = 'rejected';
             $user->save();
-            $this->notify($user->email, 'Verification needs attention',
-                '<h2 style="color:#fff;margin-top:0">Verification not approved</h2><p>Hi '.e($user->name).', your identity verification was not approved for the following reason:</p><p style="color:#ffb4b4"><b>'.e($data['note']).'</b></p><p>Please sign in and submit clear documents again.</p>');
+            Mailer::sendTemplate($user->email, 'kyc_rejected', [
+                'name' => $user->name, 'reason' => $data['note'], 'login_url' => route('login'),
+            ]);
         }
         return back()->with('success', 'Verification rejected.');
     }
@@ -48,16 +49,5 @@ class KycController extends Controller
         $path = $which === 'selfie' ? $verification->selfie_path : $verification->id_path;
         abort_unless($path && Storage::disk('local')->exists($path), 404);
         return response()->file(Storage::disk('local')->path($path));
-    }
-
-    /** Best-effort notification email; never breaks the review action. */
-    private function notify(string $to, string $subject, string $html): void
-    {
-        $site = Setting::val('site_name', config('app.name'));
-        try {
-            Mailer::sendHtml($to, $site.' — '.$subject, Mailer::wrapHtml($html, $subject));
-        } catch (\Throwable $e) {
-            \Illuminate\Support\Facades\Log::warning('KYC email failed: '.$e->getMessage());
-        }
     }
 }

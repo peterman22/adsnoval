@@ -1,5 +1,5 @@
 <x-admin-layout title="Email Templates">
-<p class="muted">Available placeholders: <code>@{{name}}</code>, <code>@{{username}}</code>, <code>@{{site_name}}</code>, <code>@{{otp}}</code>, <code>@{{amount}}</code>, <code>@{{type}}</code>, <code>@{{balance}}</code>, <code>@{{trx}}</code>, <code>@{{title}}</code>, <code>@{{login_url}}</code></p>
+<p class="muted">Available placeholders: <code>@{{name}}</code>, <code>@{{username}}</code>, <code>@{{site_name}}</code>, <code>@{{otp}}</code>, <code>@{{amount}}</code>, <code>@{{type}}</code>, <code>@{{balance}}</code>, <code>@{{trx}}</code>, <code>@{{title}}</code>, <code>@{{reason}}</code>, <code>@{{login_url}}</code></p>
 @foreach($templates as $t)
 <div class="card" style="margin-bottom:18px">
   <form method="POST" action="{{ route('admin.templates.save',$t) }}">@csrf

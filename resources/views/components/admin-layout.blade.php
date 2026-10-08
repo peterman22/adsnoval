@@ -21,6 +21,7 @@
         th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
         .badge { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
         .b-pending { background: rgba(251,191,36,.15); color: #fbbf24; } .b-ok { background: rgba(52,211,153,.15); color: var(--green); } .b-rej { background: rgba(244,114,182,.15); color: var(--pink); }
+        .nav-count { margin-left: auto; background: #ef4444; color: #fff; font-size: 11px; font-weight: 800; line-height: 1; padding: 3px 7px; border-radius: 999px; }
         .grid-a { display: grid; gap: 22px; }
         .side-toggle { display: none; }
         @media (max-width: 900px){
@@ -40,7 +41,7 @@
         <aside class="side">
             <a href="{{ route('admin.dashboard') }}" class="brand"><img src="{{ asset('assets/img/logo.png') }}" class="brand-logo" alt="{{ config('app.name') }}"> Admin</a>
             <ul class="menu">
-                @php $ri = fn($p) => request()->routeIs($p) ? 'active' : ''; @endphp
+                @php $ri = fn($p) => request()->routeIs($p) ? 'active' : ''; $kycPending = \App\Models\KycVerification::where('status',0)->count(); @endphp
                 <li><a href="{{ route('admin.dashboard') }}" class="{{ $ri('admin.dashboard') }}"><x-icon name="layout-dashboard" /> Dashboard</a></li>
                 <li><a href="{{ route('admin.deposits') }}" class="{{ $ri('admin.deposits*') }}"><x-icon name="credit-card" /> Deposits</a></li>
                 <li><a href="{{ route('admin.withdrawals') }}" class="{{ $ri('admin.withdrawals*') }}"><x-icon name="banknote" /> Withdrawals</a></li>
@@ -48,7 +49,7 @@
                 <li><a href="{{ route('admin.plans') }}" class="{{ $ri('admin.plans*') }}"><x-icon name="crown" /> Plans</a></li>
                 <li><a href="{{ route('admin.crypto') }}" class="{{ $ri('admin.crypto*') }}"><x-icon name="bitcoin" /> Crypto Wallets</a></li>
                 <li><a href="{{ route('admin.users') }}" class="{{ $ri('admin.users*') }}"><x-icon name="users" /> Users</a></li>
-                <li><a href="{{ route('admin.kyc') }}" class="{{ $ri('admin.kyc*') }}"><x-icon name="shield" /> KYC Verifications</a></li>
+                <li><a href="{{ route('admin.kyc') }}" class="{{ $ri('admin.kyc*') }}"><x-icon name="shield" /> KYC Verifications @if($kycPending)<span class="nav-count">{{ $kycPending }}</span>@endif</a></li>
                 <li><a href="{{ route('admin.templates') }}" class="{{ $ri('admin.templates*') }}"><x-icon name="mail" /> Email Templates</a></li>
                 <li><a href="{{ route('admin.account') }}" class="{{ $ri('admin.account*') }}"><x-icon name="key-round" /> My Account</a></li>
                 <li><a href="{{ route('admin.settings') }}" class="{{ $ri('admin.settings*') }}"><x-icon name="settings" /> Settings</a></li>
